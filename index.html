@@ -1,0 +1,4684 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./src/main.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+          rel="stylesheet"
+        />
+        <style>
+          * {
+            box-sizing: border-box;
+          }
+          html,
+          body {
+            margin: 0;
+            padding: 0;
+          }
+          body {
+            font-family:
+              "Onest",
+              -apple-system,
+              BlinkMacSystemFont,
+              sans-serif;
+            background: #f4efea;
+            color: #2c2622;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+          }
+          ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+          }
+          ::-webkit-scrollbar-thumb {
+            background: #e0d7cd;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+          }
+          ::-webkit-scrollbar-track {
+            background: transparent;
+          }
+          @keyframes panelIn {
+            from {
+              transform: translateX(100%);
+            }
+            to {
+              transform: translateX(0);
+            }
+          }
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+          @keyframes popIn {
+            from {
+              opacity: 0;
+              transform: translateY(14px) scale(0.98);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0) scale(1);
+            }
+          }
+          @keyframes toastIn {
+            from {
+              opacity: 0;
+              transform: translate(-50%, 10px);
+            }
+            to {
+              opacity: 1;
+              transform: translate(-50%, 0);
+            }
+          }
+          @keyframes rowGlow {
+            0% {
+              background: #fbf1e4;
+            }
+            100% {
+              background: transparent;
+            }
+          }
+        </style>
+      </helmet>
+
+      <div
+        ref="{{ rootRef }}"
+        style="
+          height: 100vh;
+          display: flex;
+          overflow: hidden;
+          background: #f4efea;
+          --accent: #6f4e37;
+          --accent-d: #5c4029;
+        "
+      >
+        <!-- ============ SIDEBAR ============ -->
+        <aside
+          style="
+            width: 248px;
+            flex-shrink: 0;
+            background: #ffffff;
+            border-right: 1px solid #ece5dd;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 16px;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              padding: 4px 8px 22px;
+            "
+          >
+            <div
+              style="
+                width: 40px;
+                height: 40px;
+                border-radius: 12px;
+                background: var(--accent, #6f4e37);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+              "
+            >
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#FFF8F0"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M4 8h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8Z"></path>
+                <path d="M17 9h2a2.5 2.5 0 0 1 0 5h-2"></path>
+                <path d="M7 2.5v2.2M11 2.5v2.2"></path>
+              </svg>
+            </div>
+            <div style="min-width: 0">
+              <div
+                style="
+                  font-size: 16.5px;
+                  font-weight: 700;
+                  letter-spacing: -0.02em;
+                  line-height: 1.1;
+                "
+              >
+                {{ shopName }}
+              </div>
+              <div
+                style="
+                  font-size: 11.5px;
+                  color: #9a9088;
+                  font-weight: 500;
+                  margin-top: 2px;
+                "
+              >
+                Система управления
+              </div>
+            </div>
+          </div>
+
+          <div
+            style="
+              font-size: 11px;
+              font-weight: 600;
+              color: #b3a99e;
+              letter-spacing: 0.08em;
+              padding: 0 9px 8px;
+            "
+          >
+            МЕНЮ
+          </div>
+          <nav style="display: flex; flex-direction: column; gap: 4px">
+            <div
+              onClick="{{ nav.dashboard.on }}"
+              style="{{ nav.dashboard.css }}"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M3 10.4 12 3l9 7.4"></path>
+                <path d="M5.2 9v11h13.6V9"></path>
+                <path d="M9.5 20v-6h5v6"></path>
+              </svg>
+              <span>Главная</span>
+            </div>
+            <div onClick="{{ nav.sales.on }}" style="{{ nav.sales.css }}">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M4 8h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8Z"></path>
+                <path d="M17 9h2a2.5 2.5 0 0 1 0 5h-2"></path>
+                <path d="M7 2.5v2.2M11 2.5v2.2"></path>
+              </svg>
+              <span>Касса</span>
+            </div>
+            <div onClick="{{ nav.products.on }}" style="{{ nav.products.css }}">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="3.5" y="3.5" width="7" height="7" rx="1.6"></rect>
+                <rect x="13.5" y="3.5" width="7" height="7" rx="1.6"></rect>
+                <rect x="3.5" y="13.5" width="7" height="7" rx="1.6"></rect>
+                <rect x="13.5" y="13.5" width="7" height="7" rx="1.6"></rect>
+              </svg>
+              <span>Меню</span>
+            </div>
+            <div
+              onClick="{{ nav.inventory.on }}"
+              style="{{ nav.inventory.css }}"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M3 7.5 12 3.2l9 4.3v9L12 20.8 3 16.5v-9Z"></path>
+                <path d="m3 7.5 9 4.3 9-4.3M12 11.8V20.8"></path>
+              </svg>
+              <span>Склад</span>
+              <sc-if value="{{ lowCount }}" hint-placeholder-val="{{ false }}"
+                ><span style="{{ nav.inventory.badgeCss }}"
+                  >{{ lowCount }}</span
+                ></sc-if
+              >
+            </div>
+          </nav>
+
+          <div
+            style="
+              margin-top: auto;
+              display: flex;
+              align-items: center;
+              gap: 11px;
+              padding: 12px 9px 4px;
+              border-top: 1px solid #f0e9e2;
+            "
+          >
+            <div
+              style="
+                width: 38px;
+                height: 38px;
+                border-radius: 11px;
+                background: var(--accent, #6f4e37);
+                color: #fff8f0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 700;
+                font-size: 14px;
+                flex-shrink: 0;
+              "
+            >
+              АК
+            </div>
+            <div style="min-width: 0; flex: 1">
+              <div style="font-size: 14px; font-weight: 600; line-height: 1.2">
+                {{ managerName }}
+              </div>
+              <div style="font-size: 12px; color: #9a9088">Управляющий</div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- ============ MAIN ============ -->
+        <main
+          style="
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            min-width: 0;
+          "
+        >
+          <!-- ---------- DASHBOARD ---------- -->
+          <sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ true }}">
+            <section
+              data-screen-label="Главная"
+              style="flex: 1; overflow-y: auto; padding: 30px 36px"
+            >
+              <div
+                style="
+                  display: flex;
+                  align-items: flex-end;
+                  justify-content: space-between;
+                  margin-bottom: 26px;
+                "
+              >
+                <div>
+                  <h1
+                    style="
+                      margin: 0;
+                      font-size: 27px;
+                      font-weight: 700;
+                      letter-spacing: -0.02em;
+                    "
+                  >
+                    Главная
+                  </h1>
+                  <div
+                    style="font-size: 14.5px; color: #9a9088; margin-top: 4px"
+                  >
+                    Сводка за вторник, 17 июня 2026
+                  </div>
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    background: #fff;
+                    border: 1px solid #ece5dd;
+                    border-radius: 11px;
+                    padding: 9px 14px;
+                    font-size: 13.5px;
+                    color: #6b5f54;
+                    font-weight: 500;
+                  "
+                >
+                  <span
+                    style="
+                      width: 8px;
+                      height: 8px;
+                      border-radius: 50%;
+                      background: #5e9b6b;
+                    "
+                  ></span
+                  >Касса открыта · 08:00
+                </div>
+              </div>
+
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(4, 1fr);
+                  gap: 16px;
+                  margin-bottom: 16px;
+                "
+              >
+                <div
+                  style="
+                    background: #fff;
+                    border: 1px solid #ece5dd;
+                    border-radius: 18px;
+                    padding: 20px;
+                  "
+                >
+                  <div
+                    style="
+                      font-size: 13.5px;
+                      color: #9a9088;
+                      font-weight: 500;
+                      margin-bottom: 12px;
+                    "
+                  >
+                    Сегодняшняя выручка
+                  </div>
+                  <div
+                    style="
+                      font-size: 29px;
+                      font-weight: 700;
+                      letter-spacing: -0.02em;
+                    "
+                  >
+                    18 450 ₽
+                  </div>
+                  <div
+                    style="
+                      font-size: 13px;
+                      color: #5e9b6b;
+                      font-weight: 600;
+                      margin-top: 7px;
+                    "
+                  >
+                    ↑ 12% к вчерашнему дню
+                  </div>
+                </div>
+                <div
+                  style="
+                    background: #fff;
+                    border: 1px solid #ece5dd;
+                    border-radius: 18px;
+                    padding: 20px;
+                  "
+                >
+                  <div
+                    style="
+                      font-size: 13.5px;
+                      color: #9a9088;
+                      font-weight: 500;
+                      margin-bottom: 12px;
+                    "
+                  >
+                    Продано напитков
+                  </div>
+                  <div
+                    style="
+                      font-size: 29px;
+                      font-weight: 700;
+                      letter-spacing: -0.02em;
+                    "
+                  >
+                    127
+                  </div>
+                  <div
+                    style="
+                      font-size: 13px;
+                      color: #9a9088;
+                      font-weight: 500;
+                      margin-top: 7px;
+                    "
+                  >
+                    шт. за сегодня
+                  </div>
+                </div>
+                <div
+                  style="
+                    background: #fff;
+                    border: 1px solid #ece5dd;
+                    border-radius: 18px;
+                    padding: 20px;
+                  "
+                >
+                  <div
+                    style="
+                      font-size: 13.5px;
+                      color: #9a9088;
+                      font-weight: 500;
+                      margin-bottom: 12px;
+                    "
+                  >
+                    Средний чек
+                  </div>
+                  <div
+                    style="
+                      font-size: 29px;
+                      font-weight: 700;
+                      letter-spacing: -0.02em;
+                    "
+                  >
+                    192 ₽
+                  </div>
+                  <div
+                    style="
+                      font-size: 13px;
+                      color: #9a9088;
+                      font-weight: 500;
+                      margin-top: 7px;
+                    "
+                  >
+                    96 чеков за сегодня
+                  </div>
+                </div>
+                <div
+                  onClick="{{ nav.inventory.on }}"
+                  style="
+                    background: #fdf6ec;
+                    border: 1px solid #f0dfc4;
+                    border-radius: 18px;
+                    padding: 20px;
+                    cursor: pointer;
+                  "
+                >
+                  <div
+                    style="
+                      font-size: 13.5px;
+                      color: #b07a2e;
+                      font-weight: 600;
+                      margin-bottom: 12px;
+                    "
+                  >
+                    Низкие остатки
+                  </div>
+                  <div
+                    style="
+                      font-size: 29px;
+                      font-weight: 700;
+                      letter-spacing: -0.02em;
+                      color: #a9651c;
+                    "
+                  >
+                    {{ lowCount }}
+                  </div>
+                  <div
+                    style="
+                      font-size: 13px;
+                      color: #b07a2e;
+                      font-weight: 600;
+                      margin-top: 7px;
+                    "
+                  >
+                    позиции требуют пополнения
+                  </div>
+                </div>
+              </div>
+
+              <!-- how it works banner -->
+              <div
+                style="
+                  background: #fff;
+                  border: 1px solid #ece5dd;
+                  border-radius: 18px;
+                  padding: 20px 24px;
+                  margin-bottom: 16px;
+                "
+              >
+                <div
+                  style="
+                    font-size: 13px;
+                    font-weight: 600;
+                    color: #b3a99e;
+                    letter-spacing: 0.04em;
+                    margin-bottom: 14px;
+                  "
+                >
+                  КАК РАБОТАЕТ УЧЁТ
+                </div>
+                <div style="display: flex; align-items: stretch; gap: 12px">
+                  <div
+                    style="
+                      flex: 1;
+                      display: flex;
+                      flex-direction: column;
+                      gap: 7px;
+                      background: #fbf8f4;
+                      border: 1px solid #f0e9e2;
+                      border-radius: 13px;
+                      padding: 15px;
+                    "
+                  >
+                    <div style="display: flex; align-items: center; gap: 9px">
+                      <span
+                        style="
+                          width: 24px;
+                          height: 24px;
+                          border-radius: 7px;
+                          background: var(--accent, #6f4e37);
+                          color: #fff8f0;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          font-size: 13px;
+                          font-weight: 700;
+                        "
+                        >1</span
+                      ><span style="font-size: 14.5px; font-weight: 600"
+                        >Продажа на кассе</span
+                      >
+                    </div>
+                    <div
+                      style="font-size: 13px; color: #9a9088; line-height: 1.45"
+                    >
+                      Бариста пробивает напиток в пару касаний.
+                    </div>
+                  </div>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      color: #cbbeb0;
+                      font-size: 20px;
+                    "
+                  >
+                    →
+                  </div>
+                  <div
+                    style="
+                      flex: 1;
+                      display: flex;
+                      flex-direction: column;
+                      gap: 7px;
+                      background: #fbf8f4;
+                      border: 1px solid #f0e9e2;
+                      border-radius: 13px;
+                      padding: 15px;
+                    "
+                  >
+                    <div style="display: flex; align-items: center; gap: 9px">
+                      <span
+                        style="
+                          width: 24px;
+                          height: 24px;
+                          border-radius: 7px;
+                          background: var(--accent, #6f4e37);
+                          color: #fff8f0;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          font-size: 13px;
+                          font-weight: 700;
+                        "
+                        >2</span
+                      ><span style="font-size: 14.5px; font-weight: 600"
+                        >Списание по рецепту</span
+                      >
+                    </div>
+                    <div
+                      style="font-size: 13px; color: #9a9088; line-height: 1.45"
+                    >
+                      Ингредиенты состава автоматически уходят со склада.
+                    </div>
+                  </div>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      color: #cbbeb0;
+                      font-size: 20px;
+                    "
+                  >
+                    →
+                  </div>
+                  <div
+                    style="
+                      flex: 1;
+                      display: flex;
+                      flex-direction: column;
+                      gap: 7px;
+                      background: #fbf8f4;
+                      border: 1px solid #f0e9e2;
+                      border-radius: 13px;
+                      padding: 15px;
+                    "
+                  >
+                    <div style="display: flex; align-items: center; gap: 9px">
+                      <span
+                        style="
+                          width: 24px;
+                          height: 24px;
+                          border-radius: 7px;
+                          background: var(--accent, #6f4e37);
+                          color: #fff8f0;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          font-size: 13px;
+                          font-weight: 700;
+                        "
+                        >3</span
+                      ><span style="font-size: 14.5px; font-weight: 600"
+                        >Актуальные остатки</span
+                      >
+                    </div>
+                    <div
+                      style="font-size: 13px; color: #9a9088; line-height: 1.45"
+                    >
+                      Никакого Excel — остатки всегда точные.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: 1.7fr 1fr;
+                  gap: 16px;
+                "
+              >
+                <div
+                  style="
+                    background: #fff;
+                    border: 1px solid #ece5dd;
+                    border-radius: 18px;
+                    padding: 22px 24px;
+                  "
+                >
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      margin-bottom: 6px;
+                    "
+                  >
+                    <div style="font-size: 16px; font-weight: 600">
+                      Продажи за неделю
+                    </div>
+                    <div style="font-size: 13px; color: #9a9088">
+                      Итого: 95 500 ₽
+                    </div>
+                  </div>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: flex-end;
+                      gap: 16px;
+                      height: 200px;
+                      padding-top: 18px;
+                    "
+                  >
+                    <div
+                      style="
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: flex-end;
+                        gap: 8px;
+                        height: 100%;
+                      "
+                    >
+                      <div
+                        style="
+                          font-size: 11.5px;
+                          color: #b3a99e;
+                          font-weight: 600;
+                        "
+                      >
+                        9,2к
+                      </div>
+                      <div
+                        style="
+                          width: 100%;
+                          height: 88px;
+                          background: #efe6dd;
+                          border-radius: 8px 8px 0 0;
+                        "
+                      ></div>
+                      <div style="font-size: 12.5px; color: #9a9088">Пн</div>
+                    </div>
+                    <div
+                      style="
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: flex-end;
+                        gap: 8px;
+                        height: 100%;
+                      "
+                    >
+                      <div
+                        style="
+                          font-size: 11.5px;
+                          color: #b3a99e;
+                          font-weight: 600;
+                        "
+                      >
+                        12,4к
+                      </div>
+                      <div
+                        style="
+                          width: 100%;
+                          height: 118px;
+                          background: #efe6dd;
+                          border-radius: 8px 8px 0 0;
+                        "
+                      ></div>
+                      <div style="font-size: 12.5px; color: #9a9088">Вт</div>
+                    </div>
+                    <div
+                      style="
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: flex-end;
+                        gap: 8px;
+                        height: 100%;
+                      "
+                    >
+                      <div
+                        style="
+                          font-size: 11.5px;
+                          color: #b3a99e;
+                          font-weight: 600;
+                        "
+                      >
+                        8,1к
+                      </div>
+                      <div
+                        style="
+                          width: 100%;
+                          height: 76px;
+                          background: #efe6dd;
+                          border-radius: 8px 8px 0 0;
+                        "
+                      ></div>
+                      <div style="font-size: 12.5px; color: #9a9088">Ср</div>
+                    </div>
+                    <div
+                      style="
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: flex-end;
+                        gap: 8px;
+                        height: 100%;
+                      "
+                    >
+                      <div
+                        style="
+                          font-size: 11.5px;
+                          color: #b3a99e;
+                          font-weight: 600;
+                        "
+                      >
+                        14,6к
+                      </div>
+                      <div
+                        style="
+                          width: 100%;
+                          height: 140px;
+                          background: #efe6dd;
+                          border-radius: 8px 8px 0 0;
+                        "
+                      ></div>
+                      <div style="font-size: 12.5px; color: #9a9088">Чт</div>
+                    </div>
+                    <div
+                      style="
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: flex-end;
+                        gap: 8px;
+                        height: 100%;
+                      "
+                    >
+                      <div
+                        style="
+                          font-size: 11.5px;
+                          color: #b3a99e;
+                          font-weight: 600;
+                        "
+                      >
+                        16,8к
+                      </div>
+                      <div
+                        style="
+                          width: 100%;
+                          height: 160px;
+                          background: #efe6dd;
+                          border-radius: 8px 8px 0 0;
+                        "
+                      ></div>
+                      <div style="font-size: 12.5px; color: #9a9088">Пт</div>
+                    </div>
+                    <div
+                      style="
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: flex-end;
+                        gap: 8px;
+                        height: 100%;
+                      "
+                    >
+                      <div
+                        style="
+                          font-size: 11.5px;
+                          color: var(--accent, #6f4e37);
+                          font-weight: 700;
+                        "
+                      >
+                        19,3к
+                      </div>
+                      <div
+                        style="
+                          width: 100%;
+                          height: 184px;
+                          background: var(--accent, #6f4e37);
+                          border-radius: 8px 8px 0 0;
+                        "
+                      ></div>
+                      <div
+                        style="
+                          font-size: 12.5px;
+                          color: #6b5f54;
+                          font-weight: 600;
+                        "
+                      >
+                        Сб
+                      </div>
+                    </div>
+                    <div
+                      style="
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: flex-end;
+                        gap: 8px;
+                        height: 100%;
+                      "
+                    >
+                      <div
+                        style="
+                          font-size: 11.5px;
+                          color: #b3a99e;
+                          font-weight: 600;
+                        "
+                      >
+                        15,1к
+                      </div>
+                      <div
+                        style="
+                          width: 100%;
+                          height: 144px;
+                          background: #efe6dd;
+                          border-radius: 8px 8px 0 0;
+                        "
+                      ></div>
+                      <div style="font-size: 12.5px; color: #9a9088">Вс</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  style="
+                    background: #fff;
+                    border: 1px solid #ece5dd;
+                    border-radius: 18px;
+                    padding: 22px 24px;
+                  "
+                >
+                  <div
+                    style="
+                      font-size: 16px;
+                      font-weight: 600;
+                      margin-bottom: 18px;
+                    "
+                  >
+                    Топ напитков сегодня
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 15px">
+                    <div>
+                      <div
+                        style="
+                          display: flex;
+                          justify-content: space-between;
+                          font-size: 14px;
+                          margin-bottom: 6px;
+                        "
+                      >
+                        <span style="font-weight: 500">Капучино</span
+                        ><span style="color: #9a9088; font-weight: 600"
+                          >42 шт</span
+                        >
+                      </div>
+                      <div
+                        style="
+                          height: 7px;
+                          background: #f1eae3;
+                          border-radius: 5px;
+                        "
+                      >
+                        <div
+                          style="
+                            width: 100%;
+                            height: 100%;
+                            background: var(--accent, #6f4e37);
+                            border-radius: 5px;
+                          "
+                        ></div>
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style="
+                          display: flex;
+                          justify-content: space-between;
+                          font-size: 14px;
+                          margin-bottom: 6px;
+                        "
+                      >
+                        <span style="font-weight: 500">Латте</span
+                        ><span style="color: #9a9088; font-weight: 600"
+                          >31 шт</span
+                        >
+                      </div>
+                      <div
+                        style="
+                          height: 7px;
+                          background: #f1eae3;
+                          border-radius: 5px;
+                        "
+                      >
+                        <div
+                          style="
+                            width: 74%;
+                            height: 100%;
+                            background: var(--accent, #6f4e37);
+                            border-radius: 5px;
+                          "
+                        ></div>
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style="
+                          display: flex;
+                          justify-content: space-between;
+                          font-size: 14px;
+                          margin-bottom: 6px;
+                        "
+                      >
+                        <span style="font-weight: 500">Чай с облепихой</span
+                        ><span style="color: #9a9088; font-weight: 600"
+                          >26 шт</span
+                        >
+                      </div>
+                      <div
+                        style="
+                          height: 7px;
+                          background: #f1eae3;
+                          border-radius: 5px;
+                        "
+                      >
+                        <div
+                          style="
+                            width: 62%;
+                            height: 100%;
+                            background: var(--accent, #6f4e37);
+                            border-radius: 5px;
+                          "
+                        ></div>
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style="
+                          display: flex;
+                          justify-content: space-between;
+                          font-size: 14px;
+                          margin-bottom: 6px;
+                        "
+                      >
+                        <span style="font-weight: 500">Американо</span
+                        ><span style="color: #9a9088; font-weight: 600"
+                          >24 шт</span
+                        >
+                      </div>
+                      <div
+                        style="
+                          height: 7px;
+                          background: #f1eae3;
+                          border-radius: 5px;
+                        "
+                      >
+                        <div
+                          style="
+                            width: 57%;
+                            height: 100%;
+                            background: var(--accent, #6f4e37);
+                            border-radius: 5px;
+                          "
+                        ></div>
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style="
+                          display: flex;
+                          justify-content: space-between;
+                          font-size: 14px;
+                          margin-bottom: 6px;
+                        "
+                      >
+                        <span style="font-weight: 500">Чизкейк</span
+                        ><span style="color: #9a9088; font-weight: 600"
+                          >18 шт</span
+                        >
+                      </div>
+                      <div
+                        style="
+                          height: 7px;
+                          background: #f1eae3;
+                          border-radius: 5px;
+                        "
+                      >
+                        <div
+                          style="
+                            width: 43%;
+                            height: 100%;
+                            background: var(--accent, #6f4e37);
+                            border-radius: 5px;
+                          "
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </sc-if>
+
+          <!-- ---------- POS / SALES ---------- -->
+          <sc-if value="{{ isSales }}" hint-placeholder-val="{{ false }}">
+            <section
+              data-screen-label="Продажи"
+              style="
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+                padding: 26px 28px;
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  align-items: flex-end;
+                  justify-content: space-between;
+                  margin-bottom: 20px;
+                "
+              >
+                <div>
+                  <h1
+                    style="
+                      margin: 0;
+                      font-size: 27px;
+                      font-weight: 700;
+                      letter-spacing: -0.02em;
+                    "
+                  >
+                    Касса
+                  </h1>
+                  <div
+                    style="font-size: 14.5px; color: #9a9088; margin-top: 4px"
+                  >
+                    Нажмите на товар — его рецепт спишется со склада при оплате
+                  </div>
+                </div>
+              </div>
+
+              <div style="flex: 1; display: flex; gap: 18px; overflow: hidden">
+                <div
+                  style="
+                    width: 178px;
+                    flex-shrink: 0;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 9px;
+                  "
+                >
+                  <sc-for list="{{ cats }}" as="cat" hint-placeholder-count="4">
+                    <div onClick="{{ cat.on }}" style="{{ cat.css }}">
+                      {{ cat.name }}
+                    </div>
+                  </sc-for>
+                </div>
+
+                <div style="flex: 1; overflow-y: auto; padding-right: 4px">
+                  <div
+                    style="
+                      display: grid;
+                      grid-template-columns: repeat(3, 1fr);
+                      gap: 14px;
+                    "
+                  >
+                    <sc-for
+                      list="{{ posProducts }}"
+                      as="p"
+                      hint-placeholder-count="6"
+                    >
+                      <div
+                        onClick="{{ p.add }}"
+                        style="
+                          background: #fff;
+                          border: 1px solid #ece5dd;
+                          border-radius: 16px;
+                          padding: 11px;
+                          cursor: pointer;
+                          transition:
+                            transform 0.14s,
+                            box-shadow 0.14s,
+                            border-color 0.14s;
+                        "
+                        style-hover="border-color:var(--accent,#6F4E37);box-shadow:0 8px 22px rgba(111,78,55,.13);transform:translateY(-3px);"
+                      >
+                        <div
+                          style="
+                            height: 96px;
+                            border-radius: 11px;
+                            background: repeating-linear-gradient(
+                              45deg,
+                              #f1e9e2,
+                              #f1e9e2 7px,
+                              #eae0d6 7px,
+                              #eae0d6 14px
+                            );
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin-bottom: 11px;
+                          "
+                        >
+                          <span
+                            style="
+                              font-family:
+                                &quot;JetBrains Mono&quot;, monospace;
+                              font-size: 11px;
+                              color: #baad9f;
+                              letter-spacing: 0.06em;
+                            "
+                            >фото</span
+                          >
+                        </div>
+                        <div
+                          style="
+                            font-size: 14.5px;
+                            font-weight: 600;
+                            line-height: 1.25;
+                          "
+                        >
+                          {{ p.name }}
+                        </div>
+                        <div
+                          style="
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            margin-top: 5px;
+                          "
+                        >
+                          <span
+                            style="
+                              font-size: 14.5px;
+                              color: var(--accent, #6f4e37);
+                              font-weight: 700;
+                            "
+                            >{{ p.priceLabel }}</span
+                          >
+                          <span
+                            style="
+                              font-size: 11.5px;
+                              color: #b3a99e;
+                              font-weight: 500;
+                            "
+                            >{{ p.recipeLabel }}</span
+                          >
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+
+                <div
+                  style="
+                    width: 340px;
+                    flex-shrink: 0;
+                    background: #fff;
+                    border: 1px solid #ece5dd;
+                    border-radius: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    overflow: hidden;
+                  "
+                >
+                  <div
+                    style="
+                      padding: 18px 20px;
+                      border-bottom: 1px solid #f0e9e2;
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                    "
+                  >
+                    <span style="font-size: 16px; font-weight: 700"
+                      >Текущий заказ</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        color: #9a9088;
+                        background: #f5f0ea;
+                        padding: 3px 10px;
+                        border-radius: 999px;
+                        font-weight: 600;
+                      "
+                      >{{ itemCount }} поз.</span
+                    >
+                  </div>
+
+                  <div style="flex: 1; overflow-y: auto; padding: 6px 20px">
+                    <sc-if
+                      value="{{ cartEmpty }}"
+                      hint-placeholder-val="{{ true }}"
+                    >
+                      <div
+                        style="
+                          height: 100%;
+                          min-height: 220px;
+                          display: flex;
+                          flex-direction: column;
+                          align-items: center;
+                          justify-content: center;
+                          text-align: center;
+                          color: #baad9f;
+                          gap: 12px;
+                        "
+                      >
+                        <svg
+                          width="40"
+                          height="40"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="#D8CCC0"
+                          stroke-width="1.6"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path
+                            d="M4 8h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8Z"
+                          ></path>
+                          <path d="M17 9h2a2.5 2.5 0 0 1 0 5h-2"></path>
+                        </svg>
+                        <span style="font-size: 14px"
+                          >Выберите товары<br />для оформления заказа</span
+                        >
+                      </div>
+                    </sc-if>
+                    <sc-if
+                      value="{{ cartHasItems }}"
+                      hint-placeholder-val="{{ false }}"
+                    >
+                      <div>
+                        <sc-for
+                          list="{{ cart }}"
+                          as="c"
+                          hint-placeholder-count="2"
+                        >
+                          <div
+                            style="
+                              display: flex;
+                              align-items: center;
+                              gap: 11px;
+                              padding: 13px 0;
+                              border-bottom: 1px solid #f4eee7;
+                            "
+                          >
+                            <div style="flex: 1; min-width: 0">
+                              <div
+                                style="
+                                  font-size: 14px;
+                                  font-weight: 600;
+                                  line-height: 1.2;
+                                "
+                              >
+                                {{ c.name }}
+                              </div>
+                              <div
+                                style="
+                                  font-size: 12.5px;
+                                  color: #9a9088;
+                                  margin-top: 2px;
+                                "
+                              >
+                                {{ c.priceLabel }}
+                              </div>
+                            </div>
+                            <div
+                              style="
+                                display: flex;
+                                align-items: center;
+                                gap: 7px;
+                              "
+                            >
+                              <button
+                                onClick="{{ c.dec }}"
+                                style="
+                                  width: 28px;
+                                  height: 28px;
+                                  border-radius: 8px;
+                                  border: 1px solid #e4dbd1;
+                                  background: #fbf8f4;
+                                  color: var(--accent, #6f4e37);
+                                  font-size: 17px;
+                                  line-height: 1;
+                                  cursor: pointer;
+                                  display: flex;
+                                  align-items: center;
+                                  justify-content: center;
+                                  font-family: inherit;
+                                "
+                              >
+                                −
+                              </button>
+                              <span
+                                style="
+                                  width: 18px;
+                                  text-align: center;
+                                  font-size: 14px;
+                                  font-weight: 600;
+                                "
+                                >{{ c.qtyLabel }}</span
+                              >
+                              <button
+                                onClick="{{ c.inc }}"
+                                style="
+                                  width: 28px;
+                                  height: 28px;
+                                  border-radius: 8px;
+                                  border: 1px solid #e4dbd1;
+                                  background: #fbf8f4;
+                                  color: var(--accent, #6f4e37);
+                                  font-size: 16px;
+                                  line-height: 1;
+                                  cursor: pointer;
+                                  display: flex;
+                                  align-items: center;
+                                  justify-content: center;
+                                  font-family: inherit;
+                                "
+                              >
+                                +
+                              </button>
+                            </div>
+                            <div
+                              style="
+                                width: 66px;
+                                text-align: right;
+                                font-size: 14px;
+                                font-weight: 700;
+                              "
+                            >
+                              {{ c.lineLabel }}
+                            </div>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+                  </div>
+
+                  <div
+                    style="
+                      padding: 16px 20px;
+                      border-top: 1px solid #f0e9e2;
+                      background: #fcfaf7;
+                    "
+                  >
+                    <div
+                      style="
+                        display: flex;
+                        justify-content: space-between;
+                        font-size: 13.5px;
+                        color: #9a9088;
+                        margin-bottom: 5px;
+                      "
+                    >
+                      <span>Позиций в заказе</span
+                      ><span style="font-weight: 600; color: #6b5f54"
+                        >{{ itemCount }}</span
+                      >
+                    </div>
+                    <div
+                      style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: baseline;
+                        margin-bottom: 15px;
+                      "
+                    >
+                      <span style="font-size: 15px; font-weight: 600"
+                        >Итого</span
+                      ><span
+                        style="
+                          font-size: 24px;
+                          font-weight: 700;
+                          letter-spacing: -0.02em;
+                        "
+                        >{{ totalLabel }}</span
+                      >
+                    </div>
+                    <button
+                      onClick="{{ pay }}"
+                      style="
+                        width: 100%;
+                        padding: 14px;
+                        background: var(--accent, #6f4e37);
+                        color: #fff8f0;
+                        border: none;
+                        border-radius: 13px;
+                        font-size: 15.5px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        font-family: inherit;
+                        transition: background 0.15s;
+                      "
+                      style-hover="background:var(--accent-d,#5C4029);"
+                    >
+                      Оплатить
+                    </button>
+                    <button
+                      onClick="{{ clearCart }}"
+                      style="
+                        width: 100%;
+                        padding: 11px;
+                        margin-top: 8px;
+                        background: transparent;
+                        color: #9a9088;
+                        border: none;
+                        border-radius: 12px;
+                        font-size: 14px;
+                        cursor: pointer;
+                        font-family: inherit;
+                        transition: color 0.15s;
+                      "
+                      style-hover="color:#C2453A;"
+                    >
+                      Отменить заказ
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </sc-if>
+
+          <!-- ---------- WAREHOUSE: остатки + движение + приёмка ---------- -->
+          <sc-if value="{{ isInventory }}" hint-placeholder-val="{{ false }}">
+            <section
+              data-screen-label="Склад"
+              style="flex: 1; overflow-y: auto; padding: 30px 36px"
+            >
+              <div
+                style="
+                  display: flex;
+                  align-items: flex-end;
+                  justify-content: space-between;
+                  margin-bottom: 18px;
+                  gap: 18px;
+                "
+              >
+                <div>
+                  <h1
+                    style="
+                      margin: 0;
+                      font-size: 27px;
+                      font-weight: 700;
+                      letter-spacing: -0.02em;
+                    "
+                  >
+                    Склад
+                  </h1>
+                  <div
+                    style="font-size: 14.5px; color: #9a9088; margin-top: 4px"
+                  >
+                    Списывается при продаже, пополняется приёмкой — без
+                    отдельных таблиц Excel
+                  </div>
+                </div>
+                <div style="display: flex; gap: 10px; flex-shrink: 0">
+                  <button
+                    onClick="{{ openIngredient }}"
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 8px;
+                      background: #fff;
+                      color: #6b5f54;
+                      border: 1px solid #e4dbd1;
+                      border-radius: 12px;
+                      padding: 12px 16px;
+                      font-size: 14.5px;
+                      font-weight: 600;
+                      cursor: pointer;
+                      font-family: inherit;
+                    "
+                    style-hover="background:#FBF8F4;"
+                  >
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.2"
+                      stroke-linecap="round"
+                    >
+                      <path d="M12 5v14M5 12h14"></path>
+                    </svg>
+                    Ингредиент
+                  </button>
+                  <button
+                    onClick="{{ openSupply }}"
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 8px;
+                      background: var(--accent, #6f4e37);
+                      color: #fff8f0;
+                      border: none;
+                      border-radius: 12px;
+                      padding: 12px 18px;
+                      font-size: 14.5px;
+                      font-weight: 600;
+                      cursor: pointer;
+                      font-family: inherit;
+                      transition: background 0.15s;
+                    "
+                    style-hover="background:var(--accent-d,#5C4029);"
+                  >
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.2"
+                      stroke-linecap="round"
+                    >
+                      <path d="M12 5v14M5 12h14"></path>
+                    </svg>
+                    Принять поставку
+                  </button>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 8px; margin-bottom: 18px">
+                <div onClick="{{ tabStock.on }}" style="{{ tabStock.css }}">
+                  Остатки
+                </div>
+                <div onClick="{{ tabMoves.on }}" style="{{ tabMoves.css }}">
+                  Движение
+                </div>
+              </div>
+
+              <sc-if
+                value="{{ invTabStock }}"
+                hint-placeholder-val="{{ true }}"
+              >
+                <div
+                  style="
+                    background: #fff;
+                    border: 1px solid #ece5dd;
+                    border-radius: 18px;
+                    overflow: hidden;
+                  "
+                >
+                  <table style="width: 100%; border-collapse: collapse">
+                    <thead>
+                      <tr>
+                        <th
+                          style="
+                            padding: 14px 22px;
+                            font-size: 12px;
+                            color: #9a9088;
+                            font-weight: 700;
+                            text-transform: uppercase;
+                            letter-spacing: 0.05em;
+                            border-bottom: 1px solid #ece5dd;
+                            background: #fbf8f4;
+                            text-align: left;
+                          "
+                        >
+                          Наименование
+                        </th>
+                        <th
+                          style="
+                            padding: 14px 22px;
+                            font-size: 12px;
+                            color: #9a9088;
+                            font-weight: 700;
+                            text-transform: uppercase;
+                            letter-spacing: 0.05em;
+                            border-bottom: 1px solid #ece5dd;
+                            background: #fbf8f4;
+                            text-align: left;
+                          "
+                        >
+                          Категория
+                        </th>
+                        <th
+                          style="
+                            padding: 14px 22px;
+                            font-size: 12px;
+                            color: #9a9088;
+                            font-weight: 700;
+                            text-transform: uppercase;
+                            letter-spacing: 0.05em;
+                            border-bottom: 1px solid #ece5dd;
+                            background: #fbf8f4;
+                            text-align: right;
+                          "
+                        >
+                          Остаток
+                        </th>
+                        <th
+                          style="
+                            padding: 14px 22px;
+                            font-size: 12px;
+                            color: #9a9088;
+                            font-weight: 700;
+                            text-transform: uppercase;
+                            letter-spacing: 0.05em;
+                            border-bottom: 1px solid #ece5dd;
+                            background: #fbf8f4;
+                            text-align: left;
+                          "
+                        >
+                          Ед.
+                        </th>
+                        <th
+                          style="
+                            padding: 14px 22px;
+                            font-size: 12px;
+                            color: #9a9088;
+                            font-weight: 700;
+                            text-transform: uppercase;
+                            letter-spacing: 0.05em;
+                            border-bottom: 1px solid #ece5dd;
+                            background: #fbf8f4;
+                            text-align: right;
+                          "
+                        >
+                          Мин. остаток
+                        </th>
+                        <th
+                          style="
+                            padding: 14px 22px;
+                            font-size: 12px;
+                            color: #9a9088;
+                            font-weight: 700;
+                            text-transform: uppercase;
+                            letter-spacing: 0.05em;
+                            border-bottom: 1px solid #ece5dd;
+                            background: #fbf8f4;
+                            text-align: left;
+                          "
+                        >
+                          Статус
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <sc-for
+                        list="{{ ingredients }}"
+                        as="r"
+                        hint-placeholder-count="9"
+                      >
+                        <tr
+                          onClick="{{ r.edit }}"
+                          style="{{ r.rowCss }}"
+                          style-hover="background:#FBF8F4;"
+                        >
+                          <td
+                            style="
+                              padding: 15px 22px;
+                              font-size: 14.5px;
+                              font-weight: 600;
+                              border-bottom: 1px solid #f4eee7;
+                            "
+                          >
+                            {{ r.name }}
+                          </td>
+                          <td
+                            style="
+                              padding: 15px 22px;
+                              border-bottom: 1px solid #f4eee7;
+                            "
+                          >
+                            <span
+                              style="
+                                font-size: 13px;
+                                background: #f2ebe3;
+                                color: #6b5f54;
+                                padding: 4px 11px;
+                                border-radius: 999px;
+                                font-weight: 500;
+                              "
+                              >{{ r.cat }}</span
+                            >
+                          </td>
+                          <td style="{{ r.remCss }}">{{ r.remLabel }}</td>
+                          <td
+                            style="
+                              padding: 15px 22px;
+                              border-bottom: 1px solid #f4eee7;
+                            "
+                          >
+                            <span
+                              style="
+                                font-family:
+                                  &quot;JetBrains Mono&quot;, monospace;
+                                font-size: 12.5px;
+                                background: #f2ebe3;
+                                color: var(--accent, #6f4e37);
+                                padding: 3px 10px;
+                                border-radius: 7px;
+                                font-weight: 500;
+                              "
+                              >{{ r.unit }}</span
+                            >
+                          </td>
+                          <td
+                            style="
+                              padding: 15px 22px;
+                              font-size: 14.5px;
+                              color: #9a9088;
+                              text-align: right;
+                              border-bottom: 1px solid #f4eee7;
+                            "
+                          >
+                            {{ r.minLabel }}
+                          </td>
+                          <td
+                            style="
+                              padding: 15px 22px;
+                              border-bottom: 1px solid #f4eee7;
+                            "
+                          >
+                            <sc-if
+                              value="{{ r.low }}"
+                              hint-placeholder-val="{{ false }}"
+                              ><span
+                                style="
+                                  display: inline-flex;
+                                  align-items: center;
+                                  gap: 6px;
+                                  font-size: 12.5px;
+                                  font-weight: 600;
+                                  background: #fbeedb;
+                                  color: #a9651c;
+                                  padding: 4px 11px;
+                                  border-radius: 999px;
+                                "
+                                ><span
+                                  style="
+                                    width: 6px;
+                                    height: 6px;
+                                    border-radius: 50%;
+                                    background: #c9842e;
+                                  "
+                                ></span
+                                >Низкий остаток</span
+                              ></sc-if
+                            >
+                            <sc-if
+                              value="{{ r.ok }}"
+                              hint-placeholder-val="{{ true }}"
+                              ><span
+                                style="
+                                  font-size: 12.5px;
+                                  font-weight: 600;
+                                  color: #5e9b6b;
+                                  background: #ebf3ec;
+                                  padding: 4px 11px;
+                                  border-radius: 999px;
+                                "
+                                >В норме</span
+                              ></sc-if
+                            >
+                          </td>
+                        </tr>
+                      </sc-for>
+                    </tbody>
+                  </table>
+                </div>
+              </sc-if>
+
+              <sc-if
+                value="{{ invTabMoves }}"
+                hint-placeholder-val="{{ false }}"
+              >
+                <div
+                  style="
+                    background: #fff;
+                    border: 1px solid #ece5dd;
+                    border-radius: 18px;
+                    overflow: hidden;
+                  "
+                >
+                  <table style="width: 100%; border-collapse: collapse">
+                    <thead>
+                      <tr>
+                        <th
+                          style="
+                            padding: 14px 22px;
+                            font-size: 12px;
+                            color: #9a9088;
+                            font-weight: 700;
+                            text-transform: uppercase;
+                            letter-spacing: 0.05em;
+                            border-bottom: 1px solid #ece5dd;
+                            background: #fbf8f4;
+                            text-align: left;
+                          "
+                        >
+                          Дата
+                        </th>
+                        <th
+                          style="
+                            padding: 14px 22px;
+                            font-size: 12px;
+                            color: #9a9088;
+                            font-weight: 700;
+                            text-transform: uppercase;
+                            letter-spacing: 0.05em;
+                            border-bottom: 1px solid #ece5dd;
+                            background: #fbf8f4;
+                            text-align: left;
+                          "
+                        >
+                          Позиция
+                        </th>
+                        <th
+                          style="
+                            padding: 14px 22px;
+                            font-size: 12px;
+                            color: #9a9088;
+                            font-weight: 700;
+                            text-transform: uppercase;
+                            letter-spacing: 0.05em;
+                            border-bottom: 1px solid #ece5dd;
+                            background: #fbf8f4;
+                            text-align: left;
+                          "
+                        >
+                          Операция
+                        </th>
+                        <th
+                          style="
+                            padding: 14px 22px;
+                            font-size: 12px;
+                            color: #9a9088;
+                            font-weight: 700;
+                            text-transform: uppercase;
+                            letter-spacing: 0.05em;
+                            border-bottom: 1px solid #ece5dd;
+                            background: #fbf8f4;
+                            text-align: right;
+                          "
+                        >
+                          Количество
+                        </th>
+                        <th
+                          style="
+                            padding: 14px 22px;
+                            font-size: 12px;
+                            color: #9a9088;
+                            font-weight: 700;
+                            text-transform: uppercase;
+                            letter-spacing: 0.05em;
+                            border-bottom: 1px solid #ece5dd;
+                            background: #fbf8f4;
+                            text-align: right;
+                          "
+                        >
+                          Остаток после
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <sc-for
+                        list="{{ history }}"
+                        as="h"
+                        hint-placeholder-count="8"
+                      >
+                        <tr style="{{ h.rowCss }}">
+                          <td
+                            style="
+                              padding: 14px 22px;
+                              font-size: 13.5px;
+                              color: #9a9088;
+                              border-bottom: 1px solid #f4eee7;
+                              white-space: nowrap;
+                            "
+                          >
+                            {{ h.date }}
+                          </td>
+                          <td
+                            style="
+                              padding: 14px 22px;
+                              font-size: 14.5px;
+                              font-weight: 600;
+                              border-bottom: 1px solid #f4eee7;
+                            "
+                          >
+                            {{ h.item }}
+                          </td>
+                          <td
+                            style="
+                              padding: 14px 22px;
+                              border-bottom: 1px solid #f4eee7;
+                            "
+                          >
+                            <span style="{{ h.opCss }}">{{ h.opLabel }}</span>
+                          </td>
+                          <td style="{{ h.deltaCss }}">{{ h.deltaLabel }}</td>
+                          <td
+                            style="
+                              padding: 14px 22px;
+                              font-size: 14px;
+                              text-align: right;
+                              border-bottom: 1px solid #f4eee7;
+                              font-family:
+                                &quot;JetBrains Mono&quot;, monospace;
+                              color: #6b5f54;
+                            "
+                          >
+                            {{ h.afterLabel }}
+                          </td>
+                        </tr>
+                      </sc-for>
+                    </tbody>
+                  </table>
+                </div>
+              </sc-if>
+            </section>
+          </sc-if>
+
+          <!-- ---------- PRODUCTS ---------- -->
+          <sc-if value="{{ isProducts }}" hint-placeholder-val="{{ false }}">
+            <section
+              data-screen-label="Товары"
+              style="flex: 1; overflow-y: auto; padding: 30px 36px"
+            >
+              <div
+                style="
+                  display: flex;
+                  align-items: flex-end;
+                  justify-content: space-between;
+                  margin-bottom: 24px;
+                "
+              >
+                <div>
+                  <h1
+                    style="
+                      margin: 0;
+                      font-size: 27px;
+                      font-weight: 700;
+                      letter-spacing: -0.02em;
+                    "
+                  >
+                    Меню
+                  </h1>
+                  <div
+                    style="font-size: 14.5px; color: #9a9088; margin-top: 4px"
+                  >
+                    Напитки и блюда заведения · нажмите на товар, чтобы открыть
+                    его состав
+                  </div>
+                </div>
+                <button
+                  onClick="{{ addProduct }}"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    background: var(--accent, #6f4e37);
+                    color: #fff8f0;
+                    border: none;
+                    border-radius: 12px;
+                    padding: 12px 18px;
+                    font-size: 14.5px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    font-family: inherit;
+                    transition: background 0.15s;
+                  "
+                  style-hover="background:var(--accent-d,#5C4029);"
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                    stroke-linecap="round"
+                  >
+                    <path d="M12 5v14M5 12h14"></path>
+                  </svg>
+                  Добавить товар
+                </button>
+              </div>
+
+              <div
+                style="
+                  background: #fff;
+                  border: 1px solid #ece5dd;
+                  border-radius: 18px;
+                  overflow: hidden;
+                "
+              >
+                <table style="width: 100%; border-collapse: collapse">
+                  <thead>
+                    <tr>
+                      <th
+                        style="
+                          padding: 14px 22px;
+                          font-size: 12px;
+                          color: #9a9088;
+                          font-weight: 700;
+                          text-transform: uppercase;
+                          letter-spacing: 0.05em;
+                          border-bottom: 1px solid #ece5dd;
+                          background: #fbf8f4;
+                          text-align: left;
+                        "
+                      >
+                        Название
+                      </th>
+                      <th
+                        style="
+                          padding: 14px 22px;
+                          font-size: 12px;
+                          color: #9a9088;
+                          font-weight: 700;
+                          text-transform: uppercase;
+                          letter-spacing: 0.05em;
+                          border-bottom: 1px solid #ece5dd;
+                          background: #fbf8f4;
+                          text-align: left;
+                        "
+                      >
+                        Категория
+                      </th>
+                      <th
+                        style="
+                          padding: 14px 22px;
+                          font-size: 12px;
+                          color: #9a9088;
+                          font-weight: 700;
+                          text-transform: uppercase;
+                          letter-spacing: 0.05em;
+                          border-bottom: 1px solid #ece5dd;
+                          background: #fbf8f4;
+                          text-align: left;
+                        "
+                      >
+                        Состав
+                      </th>
+                      <th
+                        style="
+                          padding: 14px 22px;
+                          font-size: 12px;
+                          color: #9a9088;
+                          font-weight: 700;
+                          text-transform: uppercase;
+                          letter-spacing: 0.05em;
+                          border-bottom: 1px solid #ece5dd;
+                          background: #fbf8f4;
+                          text-align: right;
+                        "
+                      >
+                        Цена
+                      </th>
+                      <th
+                        style="
+                          padding: 14px 22px;
+                          font-size: 12px;
+                          color: #9a9088;
+                          font-weight: 700;
+                          text-transform: uppercase;
+                          letter-spacing: 0.05em;
+                          border-bottom: 1px solid #ece5dd;
+                          background: #fbf8f4;
+                          text-align: right;
+                        "
+                      >
+                        Себестоимость
+                      </th>
+                      <th
+                        style="
+                          padding: 14px 22px;
+                          font-size: 12px;
+                          color: #9a9088;
+                          font-weight: 700;
+                          text-transform: uppercase;
+                          letter-spacing: 0.05em;
+                          border-bottom: 1px solid #ece5dd;
+                          background: #fbf8f4;
+                          text-align: right;
+                        "
+                      >
+                        Маржа
+                      </th>
+                      <th
+                        style="
+                          padding: 14px 22px;
+                          font-size: 12px;
+                          color: #9a9088;
+                          font-weight: 700;
+                          text-transform: uppercase;
+                          letter-spacing: 0.05em;
+                          border-bottom: 1px solid #ece5dd;
+                          background: #fbf8f4;
+                          text-align: left;
+                        "
+                      >
+                        Статус
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <sc-for
+                      list="{{ products }}"
+                      as="r"
+                      hint-placeholder-count="8"
+                    >
+                      <tr
+                        onClick="{{ r.edit }}"
+                        style="cursor: pointer; transition: background 0.12s"
+                        style-hover="background:#FBF8F4;"
+                      >
+                        <td
+                          style="
+                            padding: 15px 22px;
+                            font-size: 14.5px;
+                            font-weight: 600;
+                            border-bottom: 1px solid #f4eee7;
+                          "
+                        >
+                          {{ r.name }}
+                        </td>
+                        <td
+                          style="
+                            padding: 15px 22px;
+                            border-bottom: 1px solid #f4eee7;
+                          "
+                        >
+                          <span
+                            style="
+                              font-size: 13px;
+                              background: #f2ebe3;
+                              color: #6b5f54;
+                              padding: 4px 11px;
+                              border-radius: 999px;
+                              font-weight: 500;
+                            "
+                            >{{ r.cat }}</span
+                          >
+                        </td>
+                        <td
+                          style="
+                            padding: 15px 22px;
+                            font-size: 13.5px;
+                            color: #9a9088;
+                            border-bottom: 1px solid #f4eee7;
+                          "
+                        >
+                          {{ r.recipeLabel }}
+                        </td>
+                        <td
+                          style="
+                            padding: 15px 22px;
+                            font-size: 15px;
+                            font-weight: 600;
+                            text-align: right;
+                            border-bottom: 1px solid #f4eee7;
+                          "
+                        >
+                          {{ r.priceLabel }}
+                        </td>
+                        <td
+                          style="
+                            padding: 15px 22px;
+                            font-size: 14.5px;
+                            color: #9a9088;
+                            text-align: right;
+                            border-bottom: 1px solid #f4eee7;
+                          "
+                        >
+                          {{ r.costLabel }}
+                        </td>
+                        <td
+                          style="
+                            padding: 15px 22px;
+                            font-size: 14px;
+                            font-weight: 600;
+                            text-align: right;
+                            border-bottom: 1px solid #f4eee7;
+                            color: #3e8a57;
+                          "
+                        >
+                          {{ r.marginLabel }}
+                        </td>
+                        <td
+                          style="
+                            padding: 15px 22px;
+                            border-bottom: 1px solid #f4eee7;
+                          "
+                        >
+                          <span style="{{ r.statusCss }}"
+                            >{{ r.statusLabel }}</span
+                          >
+                        </td>
+                      </tr>
+                    </sc-for>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </sc-if>
+
+          <!-- ---------- RECIPE EDITOR ---------- -->
+          <sc-if value="{{ isEditor }}" hint-placeholder-val="{{ false }}">
+            <section
+              data-screen-label="Редактор товара"
+              style="flex: 1; overflow-y: auto; padding: 30px 36px"
+            >
+              <div style="max-width: 860px; margin: 0 auto">
+                <button
+                  onClick="{{ closeEditor }}"
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 7px;
+                    background: none;
+                    border: none;
+                    color: #9a9088;
+                    font-size: 14px;
+                    font-weight: 500;
+                    cursor: pointer;
+                    font-family: inherit;
+                    padding: 0;
+                    margin-bottom: 14px;
+                  "
+                  style-hover="color:#6B5F54;"
+                >
+                  <svg
+                    width="17"
+                    height="17"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M15 5l-7 7 7 7"></path>
+                  </svg>
+                  Назад к товарам
+                </button>
+                <h1
+                  style="
+                    margin: 0 0 24px;
+                    font-size: 27px;
+                    font-weight: 700;
+                    letter-spacing: -0.02em;
+                  "
+                >
+                  {{ editor.title }}
+                </h1>
+
+                <div
+                  style="
+                    background: #fff;
+                    border: 1px solid #ece5dd;
+                    border-radius: 18px;
+                    padding: 24px 26px;
+                    margin-bottom: 16px;
+                  "
+                >
+                  <div
+                    style="
+                      font-size: 13px;
+                      font-weight: 600;
+                      color: #b3a99e;
+                      letter-spacing: 0.04em;
+                      margin-bottom: 18px;
+                    "
+                  >
+                    ОСНОВНЫЕ ДАННЫЕ
+                  </div>
+                  <div
+                    style="
+                      display: grid;
+                      grid-template-columns: 1fr 1fr;
+                      gap: 18px;
+                    "
+                  >
+                    <label style="grid-column: 1 / -1; display: block">
+                      <span
+                        style="
+                          display: block;
+                          font-size: 13px;
+                          color: #6b5f54;
+                          font-weight: 600;
+                          margin-bottom: 8px;
+                        "
+                        >Название товара</span
+                      >
+                      <input
+                        value="{{ editor.name }}"
+                        onChange="{{ editor.onName }}"
+                        placeholder="Например, Чай с облепихой"
+                        style="
+                          width: 100%;
+                          padding: 12px 13px;
+                          border-radius: 11px;
+                          border: 1px solid #e4dbd1;
+                          font-size: 14.5px;
+                          font-family: inherit;
+                          background: #fbf8f4;
+                          color: #2c2622;
+                          outline: none;
+                        "
+                      />
+                    </label>
+                    <label style="display: block">
+                      <span
+                        style="
+                          display: block;
+                          font-size: 13px;
+                          color: #6b5f54;
+                          font-weight: 600;
+                          margin-bottom: 8px;
+                        "
+                        >Категория</span
+                      >
+                      <select
+                        value="{{ editor.cat }}"
+                        onChange="{{ editor.onCat }}"
+                        style="
+                          width: 100%;
+                          padding: 12px 13px;
+                          border-radius: 11px;
+                          border: 1px solid #e4dbd1;
+                          font-size: 14.5px;
+                          font-family: inherit;
+                          background: #fbf8f4;
+                          color: #2c2622;
+                          outline: none;
+                        "
+                      >
+                        <sc-for
+                          list="{{ catOptions }}"
+                          as="o"
+                          hint-placeholder-count="4"
+                          ><option value="{{ o }}">{{ o }}</option></sc-for
+                        >
+                      </select>
+                    </label>
+                    <div></div>
+                    <label style="display: block">
+                      <span
+                        style="
+                          display: block;
+                          font-size: 13px;
+                          color: #6b5f54;
+                          font-weight: 600;
+                          margin-bottom: 8px;
+                        "
+                        >Цена продажи, ₽</span
+                      >
+                      <input
+                        value="{{ editor.price }}"
+                        onChange="{{ editor.onPrice }}"
+                        placeholder="0"
+                        style="
+                          width: 100%;
+                          padding: 12px 13px;
+                          border-radius: 11px;
+                          border: 1px solid #e4dbd1;
+                          font-size: 14.5px;
+                          font-family: inherit;
+                          background: #fbf8f4;
+                          color: #2c2622;
+                          outline: none;
+                        "
+                      />
+                    </label>
+                    <label style="display: block">
+                      <span
+                        style="
+                          display: block;
+                          font-size: 13px;
+                          color: #6b5f54;
+                          font-weight: 600;
+                          margin-bottom: 8px;
+                        "
+                        >Себестоимость и маржа</span
+                      >
+                      <div
+                        style="
+                          display: flex;
+                          align-items: center;
+                          gap: 9px;
+                          padding: 11px 13px;
+                          border-radius: 11px;
+                          border: 1px dashed #e4dbd1;
+                          background: #fbf8f4;
+                        "
+                      >
+                        <span
+                          style="
+                            font-size: 15px;
+                            font-weight: 700;
+                            font-family: &quot;JetBrains Mono&quot;, monospace;
+                          "
+                          >{{ editor.costLabel }}</span
+                        >
+                        <span
+                          style="
+                            margin-left: auto;
+                            font-size: 14px;
+                            font-weight: 700;
+                            color: #3e8a57;
+                          "
+                          >{{ editor.marginLabel }}</span
+                        >
+                        <span
+                          style="
+                            font-size: 12.5px;
+                            color: #9a9088;
+                            font-weight: 600;
+                          "
+                          >{{ editor.marginPctLabel }}</span
+                        >
+                      </div>
+                      <span
+                        style="
+                          display: block;
+                          font-size: 11.5px;
+                          color: #b3a99e;
+                          margin-top: 6px;
+                        "
+                        >{{ editor.costHint }}</span
+                      >
+                    </label>
+                  </div>
+                </div>
+
+                <!-- type toggle + explanation -->
+                <div
+                  style="
+                    background: #fff;
+                    border: 1px solid #ece5dd;
+                    border-radius: 18px;
+                    padding: 24px 26px;
+                    margin-bottom: 16px;
+                  "
+                >
+                  <div
+                    style="
+                      font-size: 13px;
+                      font-weight: 600;
+                      color: #b3a99e;
+                      letter-spacing: 0.04em;
+                      margin-bottom: 16px;
+                    "
+                  >
+                    ТИП ТОВАРА
+                  </div>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      gap: 18px;
+                    "
+                  >
+                    <div style="min-width: 0">
+                      <div style="font-size: 15.5px; font-weight: 700">
+                        Готовый товар
+                      </div>
+                      <div
+                        style="
+                          font-size: 13.5px;
+                          color: #9a9088;
+                          margin-top: 4px;
+                          line-height: 1.45;
+                          text-wrap: pretty;
+                        "
+                      >
+                        Если включено — товар продаётся как готовое изделие и не
+                        использует ингредиенты. При продаже со склада
+                        списывается сам товар.
+                      </div>
+                    </div>
+                    <button
+                      onClick="{{ editor.toggleFinished }}"
+                      style="{{ editor.switchCss }}"
+                    >
+                      <span style="{{ editor.knobCss }}"></span>
+                    </button>
+                  </div>
+
+                  <div style="display: flex; gap: 12px; margin-top: 18px">
+                    <div style="{{ editor.finishedCardCss }}">
+                      <div
+                        style="
+                          display: flex;
+                          align-items: center;
+                          gap: 8px;
+                          margin-bottom: 7px;
+                        "
+                      >
+                        <span
+                          style="
+                            width: 22px;
+                            height: 22px;
+                            border-radius: 6px;
+                            background: #f2ebe3;
+                            color: var(--accent, #6f4e37);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            flex-shrink: 0;
+                          "
+                          ><svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <rect
+                              x="4"
+                              y="4"
+                              width="16"
+                              height="16"
+                              rx="3"
+                            ></rect></svg></span
+                        ><span style="font-size: 13.5px; font-weight: 700"
+                          >Готовый товар</span
+                        >
+                      </div>
+                      <div
+                        style="
+                          font-size: 12.5px;
+                          color: #8c8278;
+                          line-height: 1.45;
+                          text-wrap: pretty;
+                        "
+                      >
+                        <b style="color: #6b5f54">Твикс</b> → продажа списывает
+                        1 шт со склада.
+                      </div>
+                    </div>
+                    <div style="{{ editor.recipeCardCss }}">
+                      <div
+                        style="
+                          display: flex;
+                          align-items: center;
+                          gap: 8px;
+                          margin-bottom: 7px;
+                        "
+                      >
+                        <span
+                          style="
+                            width: 22px;
+                            height: 22px;
+                            border-radius: 6px;
+                            background: #f2ebe3;
+                            color: var(--accent, #6f4e37);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            flex-shrink: 0;
+                          "
+                          ><svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path d="M9 3h6"></path>
+                            <path
+                              d="M10 3v5l-4 8a2 2 0 0 0 1.8 3h8.4a2 2 0 0 0 1.8-3l-4-8V3"
+                            ></path></svg></span
+                        ><span style="font-size: 13.5px; font-weight: 700"
+                          >Товар с ингредиентами</span
+                        >
+                      </div>
+                      <div
+                        style="
+                          font-size: 12.5px;
+                          color: #8c8278;
+                          line-height: 1.45;
+                          text-wrap: pretty;
+                        "
+                      >
+                        <b style="color: #6b5f54">Чай с облепихой</b> → продажа
+                        списывает чай, облепиху и мёд по нормам.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <sc-if
+                  value="{{ editor.finished }}"
+                  hint-placeholder-val="{{ false }}"
+                >
+                  <div
+                    style="
+                      background: #fff;
+                      border: 1px solid #ece5dd;
+                      border-radius: 18px;
+                      padding: 24px 26px;
+                      margin-bottom: 18px;
+                    "
+                  >
+                    <div
+                      style="
+                        font-size: 16px;
+                        font-weight: 700;
+                        margin-bottom: 4px;
+                      "
+                    >
+                      Остаток готового товара
+                    </div>
+                    <div
+                      style="
+                        font-size: 13px;
+                        color: #9a9088;
+                        margin-bottom: 18px;
+                      "
+                    >
+                      Сколько единиц товара сейчас на складе — при продаже
+                      списывается по штукам
+                    </div>
+                    <div
+                      style="
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 16px;
+                        max-width: 420px;
+                      "
+                    >
+                      <label style="display: block">
+                        <span
+                          style="
+                            display: block;
+                            font-size: 13px;
+                            color: #6b5f54;
+                            font-weight: 600;
+                            margin-bottom: 8px;
+                          "
+                          >Остаток на складе, шт</span
+                        >
+                        <input
+                          value="{{ editor.stock }}"
+                          onChange="{{ editor.onStock }}"
+                          placeholder="0"
+                          style="
+                            width: 100%;
+                            padding: 12px 13px;
+                            border-radius: 11px;
+                            border: 1px solid #e4dbd1;
+                            font-size: 14.5px;
+                            font-family: &quot;JetBrains Mono&quot;, monospace;
+                            background: #fbf8f4;
+                            color: #2c2622;
+                            outline: none;
+                          "
+                        />
+                      </label>
+                      <label style="display: block">
+                        <span
+                          style="
+                            display: block;
+                            font-size: 13px;
+                            color: #6b5f54;
+                            font-weight: 600;
+                            margin-bottom: 8px;
+                          "
+                          >Закупочная цена, ₽</span
+                        >
+                        <input
+                          value="{{ editor.cost }}"
+                          onChange="{{ editor.onCost }}"
+                          placeholder="0"
+                          style="
+                            width: 100%;
+                            padding: 12px 13px;
+                            border-radius: 11px;
+                            border: 1px solid #e4dbd1;
+                            font-size: 14.5px;
+                            font-family: &quot;JetBrains Mono&quot;, monospace;
+                            background: #fbf8f4;
+                            color: #2c2622;
+                            outline: none;
+                          "
+                        />
+                      </label>
+                    </div>
+                  </div>
+                </sc-if>
+
+                <sc-if
+                  value="{{ editor.notFinished }}"
+                  hint-placeholder-val="{{ true }}"
+                >
+                  <div
+                    style="
+                      background: #fff;
+                      border: 1px solid #ece5dd;
+                      border-radius: 18px;
+                      padding: 24px 26px;
+                      margin-bottom: 18px;
+                    "
+                  >
+                    <div
+                      style="
+                        display: flex;
+                        align-items: flex-start;
+                        justify-content: space-between;
+                        margin-bottom: 16px;
+                      "
+                    >
+                      <div>
+                        <div style="font-size: 16px; font-weight: 700">
+                          Состав товара
+                        </div>
+                        <div
+                          style="
+                            font-size: 13px;
+                            color: #9a9088;
+                            margin-top: 3px;
+                          "
+                        >
+                          Товар собирается из ингредиентов склада — они
+                          автоматически списываются при каждой продаже
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      style="
+                        display: grid;
+                        grid-template-columns: 1fr 150px 84px 40px;
+                        gap: 12px;
+                        padding: 0 2px 9px;
+                      "
+                    >
+                      <div
+                        style="
+                          font-size: 11.5px;
+                          color: #b3a99e;
+                          font-weight: 700;
+                          text-transform: uppercase;
+                          letter-spacing: 0.05em;
+                        "
+                      >
+                        Ингредиент
+                      </div>
+                      <div
+                        style="
+                          font-size: 11.5px;
+                          color: #b3a99e;
+                          font-weight: 700;
+                          text-transform: uppercase;
+                          letter-spacing: 0.05em;
+                        "
+                      >
+                        Количество на порцию
+                      </div>
+                      <div
+                        style="
+                          font-size: 11.5px;
+                          color: #b3a99e;
+                          font-weight: 700;
+                          text-transform: uppercase;
+                          letter-spacing: 0.05em;
+                        "
+                      >
+                        Ед.
+                      </div>
+                      <div></div>
+                    </div>
+
+                    <div
+                      style="display: flex; flex-direction: column; gap: 10px"
+                    >
+                      <sc-for
+                        list="{{ editor.recipe }}"
+                        as="row"
+                        hint-placeholder-count="3"
+                      >
+                        <div
+                          style="
+                            display: grid;
+                            grid-template-columns: 1fr 150px 84px 40px;
+                            gap: 12px;
+                            align-items: center;
+                          "
+                        >
+                          <select
+                            value="{{ row.invId }}"
+                            onChange="{{ row.onPick }}"
+                            style="
+                              width: 100%;
+                              padding: 11px 12px;
+                              border-radius: 10px;
+                              border: 1px solid #e4dbd1;
+                              font-size: 14px;
+                              font-family: inherit;
+                              background: #fbf8f4;
+                              color: #2c2622;
+                              outline: none;
+                            "
+                          >
+                            <sc-for
+                              list="{{ invOptions }}"
+                              as="o"
+                              hint-placeholder-count="6"
+                              ><option value="{{ o.id }}">
+                                {{ o.name }}
+                              </option></sc-for
+                            >
+                          </select>
+                          <input
+                            value="{{ row.qty }}"
+                            onChange="{{ row.onQty }}"
+                            placeholder="0.000"
+                            style="
+                              width: 100%;
+                              padding: 11px 12px;
+                              border-radius: 10px;
+                              border: 1px solid #e4dbd1;
+                              font-size: 14px;
+                              font-family:
+                                &quot;JetBrains Mono&quot;, monospace;
+                              background: #fbf8f4;
+                              color: #2c2622;
+                              outline: none;
+                            "
+                          />
+                          <div
+                            style="
+                              font-size: 13.5px;
+                              color: #6b5f54;
+                              font-family:
+                                &quot;JetBrains Mono&quot;, monospace;
+                              text-align: center;
+                              background: #f2ebe3;
+                              border-radius: 9px;
+                              padding: 11px 0;
+                            "
+                          >
+                            {{ row.unit }}
+                          </div>
+                          <button
+                            onClick="{{ row.remove }}"
+                            style="
+                              width: 38px;
+                              height: 38px;
+                              border-radius: 10px;
+                              border: 1px solid #ece5dd;
+                              background: #fbf8f4;
+                              color: #b5897f;
+                              cursor: pointer;
+                              display: flex;
+                              align-items: center;
+                              justify-content: center;
+                              font-family: inherit;
+                            "
+                            style-hover="background:#FBEDEA;color:#C2453A;border-color:#F0D8D2;"
+                          >
+                            <svg
+                              width="16"
+                              height="16"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13"
+                              ></path>
+                            </svg>
+                          </button>
+                        </div>
+                      </sc-for>
+                      <sc-if
+                        value="{{ editor.recipeEmpty }}"
+                        hint-placeholder-val="{{ false }}"
+                      >
+                        <div
+                          style="
+                            text-align: center;
+                            color: #baad9f;
+                            font-size: 13.5px;
+                            padding: 18px 0;
+                            border: 1px dashed #e4dbd1;
+                            border-radius: 12px;
+                          "
+                        >
+                          Состав пуст — добавьте ингредиенты из склада
+                        </div>
+                      </sc-if>
+                    </div>
+
+                    <button
+                      onClick="{{ editor.addRow }}"
+                      style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 7px;
+                        margin-top: 14px;
+                        background: #f5f0ea;
+                        color: var(--accent, #6f4e37);
+                        border: none;
+                        border-radius: 11px;
+                        padding: 11px 16px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        font-family: inherit;
+                      "
+                      style-hover="background:#EFE6DD;"
+                    >
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.4"
+                        stroke-linecap="round"
+                      >
+                        <path d="M12 5v14M5 12h14"></path>
+                      </svg>
+                      Добавить ингредиент
+                    </button>
+                  </div>
+                </sc-if>
+
+                <div
+                  style="display: flex; justify-content: flex-end; gap: 12px"
+                >
+                  <button
+                    onClick="{{ closeEditor }}"
+                    style="
+                      padding: 13px 22px;
+                      background: #f5f0ea;
+                      color: #6b5f54;
+                      border: none;
+                      border-radius: 12px;
+                      font-size: 14.5px;
+                      font-weight: 600;
+                      cursor: pointer;
+                      font-family: inherit;
+                    "
+                  >
+                    Отмена
+                  </button>
+                  <button
+                    onClick="{{ saveProduct }}"
+                    style="
+                      padding: 13px 26px;
+                      background: var(--accent, #6f4e37);
+                      color: #fff8f0;
+                      border: none;
+                      border-radius: 12px;
+                      font-size: 14.5px;
+                      font-weight: 600;
+                      cursor: pointer;
+                      font-family: inherit;
+                      transition: background 0.15s;
+                    "
+                    style-hover="background:var(--accent-d,#5C4029);"
+                  >
+                    Сохранить товар
+                  </button>
+                </div>
+              </div>
+            </section>
+          </sc-if>
+        </main>
+
+        <!-- ============ SUPPLY PANEL ============ -->
+        <sc-if value="{{ supplyOpen }}" hint-placeholder-val="{{ false }}">
+          <div
+            onClick="{{ closeSupply }}"
+            style="
+              position: fixed;
+              inset: 0;
+              background: rgba(44, 38, 34, 0.4);
+              display: flex;
+              justify-content: flex-end;
+              z-index: 50;
+              animation: fadeIn 0.2s ease;
+            "
+          >
+            <div
+              onClick="{{ stop }}"
+              style="
+                width: 520px;
+                max-width: 94vw;
+                height: 100%;
+                background: #fff;
+                box-shadow: -16px 0 50px rgba(0, 0, 0, 0.16);
+                display: flex;
+                flex-direction: column;
+                animation: panelIn 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+              "
+            >
+              <div
+                style="
+                  padding: 22px 26px;
+                  border-bottom: 1px solid #f0e9e2;
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                "
+              >
+                <div>
+                  <div
+                    style="
+                      font-size: 19px;
+                      font-weight: 700;
+                      letter-spacing: -0.01em;
+                    "
+                  >
+                    Новая поставка
+                  </div>
+                  <div
+                    style="font-size: 13.5px; color: #9a9088; margin-top: 3px"
+                  >
+                    Приёмка увеличит остатки на складе
+                  </div>
+                </div>
+                <button
+                  onClick="{{ closeSupply }}"
+                  style="
+                    width: 34px;
+                    height: 34px;
+                    border-radius: 10px;
+                    border: 1px solid #ece5dd;
+                    background: #fbf8f4;
+                    color: #6b5f54;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: inherit;
+                  "
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  >
+                    <path d="M6 6l12 12M18 6 6 18"></path>
+                  </svg>
+                </button>
+              </div>
+
+              <div style="flex: 1; overflow-y: auto; padding: 24px 26px">
+                <label style="display: block; margin-bottom: 20px">
+                  <span
+                    style="
+                      display: block;
+                      font-size: 13px;
+                      color: #6b5f54;
+                      font-weight: 600;
+                      margin-bottom: 8px;
+                    "
+                    >Поставщик</span
+                  >
+                  <select
+                    value="{{ supply.supplier }}"
+                    onChange="{{ supply.onSupplier }}"
+                    style="
+                      width: 100%;
+                      padding: 12px 13px;
+                      border-radius: 11px;
+                      border: 1px solid #e4dbd1;
+                      font-size: 14.5px;
+                      font-family: inherit;
+                      background: #fbf8f4;
+                      color: #2c2622;
+                      outline: none;
+                    "
+                  >
+                    <sc-for
+                      list="{{ supplierOptions }}"
+                      as="s"
+                      hint-placeholder-count="3"
+                      ><option value="{{ s }}">{{ s }}</option></sc-for
+                    >
+                  </select>
+                </label>
+
+                <div
+                  style="
+                    font-size: 13px;
+                    color: #6b5f54;
+                    font-weight: 600;
+                    margin-bottom: 10px;
+                  "
+                >
+                  Полученные позиции
+                </div>
+                <div
+                  style="
+                    display: grid;
+                    grid-template-columns: 1fr 92px 70px 96px 36px;
+                    gap: 10px;
+                    padding: 0 2px 8px;
+                  "
+                >
+                  <div
+                    style="
+                      font-size: 11px;
+                      color: #b3a99e;
+                      font-weight: 700;
+                      text-transform: uppercase;
+                      letter-spacing: 0.04em;
+                    "
+                  >
+                    Товар
+                  </div>
+                  <div
+                    style="
+                      font-size: 11px;
+                      color: #b3a99e;
+                      font-weight: 700;
+                      text-transform: uppercase;
+                      letter-spacing: 0.04em;
+                    "
+                  >
+                    Кол-во
+                  </div>
+                  <div
+                    style="
+                      font-size: 11px;
+                      color: #b3a99e;
+                      font-weight: 700;
+                      text-transform: uppercase;
+                      letter-spacing: 0.04em;
+                    "
+                  >
+                    Ед.
+                  </div>
+                  <div
+                    style="
+                      font-size: 11px;
+                      color: #b3a99e;
+                      font-weight: 700;
+                      text-transform: uppercase;
+                      letter-spacing: 0.04em;
+                    "
+                  >
+                    Цена
+                  </div>
+                  <div></div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 9px">
+                  <sc-for
+                    list="{{ supply.lines }}"
+                    as="l"
+                    hint-placeholder-count="3"
+                  >
+                    <div
+                      style="
+                        display: grid;
+                        grid-template-columns: 1fr 92px 70px 96px 36px;
+                        gap: 10px;
+                        align-items: center;
+                      "
+                    >
+                      <select
+                        value="{{ l.invId }}"
+                        onChange="{{ l.onPick }}"
+                        style="
+                          width: 100%;
+                          padding: 10px 11px;
+                          border-radius: 10px;
+                          border: 1px solid #e4dbd1;
+                          font-size: 13.5px;
+                          font-family: inherit;
+                          background: #fbf8f4;
+                          color: #2c2622;
+                          outline: none;
+                        "
+                      >
+                        <sc-for
+                          list="{{ invOptions }}"
+                          as="o"
+                          hint-placeholder-count="6"
+                          ><option value="{{ o.id }}">
+                            {{ o.name }}
+                          </option></sc-for
+                        >
+                      </select>
+                      <input
+                        value="{{ l.qty }}"
+                        onChange="{{ l.onQty }}"
+                        placeholder="0"
+                        style="
+                          width: 100%;
+                          padding: 10px 11px;
+                          border-radius: 10px;
+                          border: 1px solid #e4dbd1;
+                          font-size: 13.5px;
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          background: #fbf8f4;
+                          color: #2c2622;
+                          outline: none;
+                        "
+                      />
+                      <div
+                        style="
+                          font-size: 13px;
+                          color: #6b5f54;
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          text-align: center;
+                          background: #f2ebe3;
+                          border-radius: 9px;
+                          padding: 10px 0;
+                        "
+                      >
+                        {{ l.unit }}
+                      </div>
+                      <input
+                        value="{{ l.price }}"
+                        onChange="{{ l.onPrice }}"
+                        placeholder="₽"
+                        style="
+                          width: 100%;
+                          padding: 10px 11px;
+                          border-radius: 10px;
+                          border: 1px solid #e4dbd1;
+                          font-size: 13.5px;
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          background: #fbf8f4;
+                          color: #2c2622;
+                          outline: none;
+                        "
+                      />
+                      <button
+                        onClick="{{ l.remove }}"
+                        style="
+                          width: 34px;
+                          height: 34px;
+                          border-radius: 9px;
+                          border: 1px solid #ece5dd;
+                          background: #fbf8f4;
+                          color: #b5897f;
+                          cursor: pointer;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          font-family: inherit;
+                        "
+                        style-hover="background:#FBEDEA;color:#C2453A;"
+                      >
+                        <svg
+                          width="15"
+                          height="15"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path d="M5 12h14"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </sc-for>
+                </div>
+
+                <button
+                  onClick="{{ addSupplyLine }}"
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 7px;
+                    margin-top: 13px;
+                    background: #f5f0ea;
+                    color: var(--accent, #6f4e37);
+                    border: none;
+                    border-radius: 11px;
+                    padding: 10px 15px;
+                    font-size: 13.5px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    font-family: inherit;
+                  "
+                  style-hover="background:#EFE6DD;"
+                >
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.4"
+                    stroke-linecap="round"
+                  >
+                    <path d="M12 5v14M5 12h14"></path>
+                  </svg>
+                  Добавить позицию
+                </button>
+
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    background: #f2f7f2;
+                    border: 1px solid #dceadd;
+                    border-radius: 12px;
+                    padding: 13px 15px;
+                    font-size: 13px;
+                    color: #4d7c58;
+                    line-height: 1.4;
+                    margin-top: 22px;
+                  "
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#5E9B6B"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    style="flex-shrink: 0"
+                  >
+                    <path d="M20 6 9 17l-5-5"></path>
+                  </svg>
+                  После приёмки остатки выбранных ингредиентов автоматически
+                  увеличатся на складе.
+                </div>
+              </div>
+
+              <div
+                style="
+                  padding: 18px 26px;
+                  border-top: 1px solid #f0e9e2;
+                  display: flex;
+                  align-items: center;
+                  gap: 14px;
+                "
+              >
+                <div style="flex: 1">
+                  <div style="font-size: 12.5px; color: #9a9088">
+                    Сумма поставки
+                  </div>
+                  <div
+                    style="
+                      font-size: 20px;
+                      font-weight: 700;
+                      letter-spacing: -0.01em;
+                    "
+                  >
+                    {{ supplyTotalLabel }}
+                  </div>
+                </div>
+                <button
+                  onClick="{{ closeSupply }}"
+                  style="
+                    padding: 13px 18px;
+                    background: #f5f0ea;
+                    color: #6b5f54;
+                    border: none;
+                    border-radius: 12px;
+                    font-size: 14.5px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    font-family: inherit;
+                  "
+                >
+                  Отмена
+                </button>
+                <button
+                  onClick="{{ acceptSupply }}"
+                  style="
+                    padding: 13px 22px;
+                    background: var(--accent, #6f4e37);
+                    color: #fff8f0;
+                    border: none;
+                    border-radius: 12px;
+                    font-size: 14.5px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    font-family: inherit;
+                    transition: background 0.15s;
+                  "
+                  style-hover="background:var(--accent-d,#5C4029);"
+                >
+                  Принять поставку
+                </button>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ INGREDIENT FORM ============ -->
+        <sc-if value="{{ ingForm }}" hint-placeholder-val="{{ false }}">
+          <div
+            onClick="{{ closeIngredient }}"
+            style="
+              position: fixed;
+              inset: 0;
+              background: rgba(44, 38, 34, 0.45);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              z-index: 56;
+              animation: fadeIn 0.2s ease;
+              padding: 24px;
+            "
+          >
+            <div
+              onClick="{{ stop }}"
+              style="
+                width: 440px;
+                max-width: 96vw;
+                background: #fff;
+                border-radius: 20px;
+                box-shadow: 0 30px 70px rgba(0, 0, 0, 0.28);
+                display: flex;
+                flex-direction: column;
+                animation: popIn 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+                overflow: hidden;
+              "
+            >
+              <div
+                style="
+                  padding: 22px 26px;
+                  border-bottom: 1px solid #f0e9e2;
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                "
+              >
+                <div
+                  style="
+                    font-size: 18px;
+                    font-weight: 700;
+                    letter-spacing: -0.01em;
+                  "
+                >
+                  {{ ingForm.title }}
+                </div>
+                <button
+                  onClick="{{ closeIngredient }}"
+                  style="
+                    width: 34px;
+                    height: 34px;
+                    border-radius: 10px;
+                    border: 1px solid #ece5dd;
+                    background: #fbf8f4;
+                    color: #6b5f54;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: inherit;
+                  "
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  >
+                    <path d="M6 6l12 12M18 6 6 18"></path>
+                  </svg>
+                </button>
+              </div>
+              <div
+                style="
+                  padding: 22px 26px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 16px;
+                "
+              >
+                <label style="display: block">
+                  <span
+                    style="
+                      display: block;
+                      font-size: 13px;
+                      color: #6b5f54;
+                      font-weight: 600;
+                      margin-bottom: 8px;
+                    "
+                    >Наименование</span
+                  >
+                  <input
+                    value="{{ ingForm.name }}"
+                    onChange="{{ ingForm.onName }}"
+                    placeholder="Например, Сироп карамельный"
+                    style="
+                      width: 100%;
+                      padding: 12px 13px;
+                      border-radius: 11px;
+                      border: 1px solid #e4dbd1;
+                      font-size: 14.5px;
+                      font-family: inherit;
+                      background: #fbf8f4;
+                      color: #2c2622;
+                      outline: none;
+                    "
+                  />
+                </label>
+                <div
+                  style="
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 14px;
+                  "
+                >
+                  <label style="display: block">
+                    <span
+                      style="
+                        display: block;
+                        font-size: 13px;
+                        color: #6b5f54;
+                        font-weight: 600;
+                        margin-bottom: 8px;
+                      "
+                      >Категория</span
+                    >
+                    <select
+                      value="{{ ingForm.cat }}"
+                      onChange="{{ ingForm.onCat }}"
+                      style="
+                        width: 100%;
+                        padding: 12px 13px;
+                        border-radius: 11px;
+                        border: 1px solid #e4dbd1;
+                        font-size: 14.5px;
+                        font-family: inherit;
+                        background: #fbf8f4;
+                        color: #2c2622;
+                        outline: none;
+                      "
+                    >
+                      <sc-for
+                        list="{{ ingredientCats }}"
+                        as="o"
+                        hint-placeholder-count="5"
+                        ><option value="{{ o }}">{{ o }}</option></sc-for
+                      >
+                    </select>
+                  </label>
+                  <label style="display: block">
+                    <span
+                      style="
+                        display: block;
+                        font-size: 13px;
+                        color: #6b5f54;
+                        font-weight: 600;
+                        margin-bottom: 8px;
+                      "
+                      >Единица измерения</span
+                    >
+                    <select
+                      value="{{ ingForm.unit }}"
+                      onChange="{{ ingForm.onUnit }}"
+                      style="
+                        width: 100%;
+                        padding: 12px 13px;
+                        border-radius: 11px;
+                        border: 1px solid #e4dbd1;
+                        font-size: 14.5px;
+                        font-family: inherit;
+                        background: #fbf8f4;
+                        color: #2c2622;
+                        outline: none;
+                      "
+                    >
+                      <sc-for
+                        list="{{ ingredientUnits }}"
+                        as="o"
+                        hint-placeholder-count="3"
+                        ><option value="{{ o }}">{{ o }}</option></sc-for
+                      >
+                    </select>
+                  </label>
+                </div>
+                <div
+                  style="
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 14px;
+                  "
+                >
+                  <label style="display: block">
+                    <span
+                      style="
+                        display: block;
+                        font-size: 13px;
+                        color: #6b5f54;
+                        font-weight: 600;
+                        margin-bottom: 8px;
+                      "
+                      >Остаток на складе</span
+                    >
+                    <input
+                      value="{{ ingForm.rem }}"
+                      onChange="{{ ingForm.onRem }}"
+                      placeholder="0"
+                      style="
+                        width: 100%;
+                        padding: 12px 13px;
+                        border-radius: 11px;
+                        border: 1px solid #e4dbd1;
+                        font-size: 14.5px;
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        background: #fbf8f4;
+                        color: #2c2622;
+                        outline: none;
+                      "
+                    />
+                  </label>
+                  <label style="display: block">
+                    <span
+                      style="
+                        display: block;
+                        font-size: 13px;
+                        color: #6b5f54;
+                        font-weight: 600;
+                        margin-bottom: 8px;
+                      "
+                      >Минимальный остаток</span
+                    >
+                    <input
+                      value="{{ ingForm.min }}"
+                      onChange="{{ ingForm.onMin }}"
+                      placeholder="0"
+                      style="
+                        width: 100%;
+                        padding: 12px 13px;
+                        border-radius: 11px;
+                        border: 1px solid #e4dbd1;
+                        font-size: 14.5px;
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        background: #fbf8f4;
+                        color: #2c2622;
+                        outline: none;
+                      "
+                    />
+                  </label>
+                </div>
+              </div>
+              <div
+                style="
+                  padding: 16px 26px;
+                  border-top: 1px solid #f0e9e2;
+                  display: flex;
+                  justify-content: flex-end;
+                  gap: 12px;
+                "
+              >
+                <button
+                  onClick="{{ closeIngredient }}"
+                  style="
+                    padding: 12px 20px;
+                    background: #f5f0ea;
+                    color: #6b5f54;
+                    border: none;
+                    border-radius: 12px;
+                    font-size: 14.5px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    font-family: inherit;
+                  "
+                >
+                  Отмена
+                </button>
+                <button
+                  onClick="{{ saveIngredient }}"
+                  style="
+                    padding: 12px 24px;
+                    background: var(--accent, #6f4e37);
+                    color: #fff8f0;
+                    border: none;
+                    border-radius: 12px;
+                    font-size: 14.5px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    font-family: inherit;
+                    transition: background 0.15s;
+                  "
+                  style-hover="background:var(--accent-d,#5C4029);"
+                >
+                  Сохранить
+                </button>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ SALE DEDUCTION MODAL ============ -->
+        <sc-if value="{{ saleOpen }}" hint-placeholder-val="{{ false }}">
+          <div
+            onClick="{{ closeSale }}"
+            style="
+              position: fixed;
+              inset: 0;
+              background: rgba(44, 38, 34, 0.45);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              z-index: 55;
+              animation: fadeIn 0.2s ease;
+              padding: 24px;
+            "
+          >
+            <div
+              onClick="{{ stop }}"
+              style="
+                width: 560px;
+                max-width: 96vw;
+                max-height: 90vh;
+                overflow: hidden;
+                background: #fff;
+                border-radius: 22px;
+                box-shadow: 0 30px 70px rgba(0, 0, 0, 0.28);
+                display: flex;
+                flex-direction: column;
+                animation: popIn 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+              "
+            >
+              <div
+                style="
+                  padding: 26px 28px 22px;
+                  background: var(--accent, #6f4e37);
+                  color: #fff8f0;
+                "
+              >
+                <div style="display: flex; align-items: center; gap: 12px">
+                  <div
+                    style="
+                      width: 42px;
+                      height: 42px;
+                      border-radius: 12px;
+                      background: rgba(255, 255, 255, 0.16);
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      flex-shrink: 0;
+                    "
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#FFF8F0"
+                      stroke-width="2.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M20 6 9 17l-5-5"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <div
+                      style="
+                        font-size: 19px;
+                        font-weight: 700;
+                        letter-spacing: -0.01em;
+                      "
+                    >
+                      Продажа оформлена · {{ saleTotalLabel }}
+                    </div>
+                    <div
+                      style="font-size: 13.5px; opacity: 0.85; margin-top: 2px"
+                    >
+                      {{ saleSummaryLabel }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="flex: 1; overflow-y: auto; padding: 22px 28px">
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 9px;
+                    margin-bottom: 16px;
+                  "
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="var(--accent,#6F4E37)"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M3.5 12a8.5 8.5 0 1 0 2.4-5.9"></path>
+                    <path d="M5.4 3.2v3.4h3.4"></path>
+                  </svg>
+                  <span style="font-size: 14.5px; font-weight: 700"
+                    >Списано со склада автоматически</span
+                  >
+                </div>
+
+                <sc-if
+                  value="{{ saleHasDeductions }}"
+                  hint-placeholder-val="{{ true }}"
+                >
+                  <div
+                    style="
+                      border: 1px solid #f0e9e2;
+                      border-radius: 14px;
+                      overflow: hidden;
+                    "
+                  >
+                    <div
+                      style="
+                        display: grid;
+                        grid-template-columns: 1.4fr 1fr auto 1fr;
+                        gap: 10px;
+                        align-items: center;
+                        padding: 10px 16px;
+                        background: #fbf8f4;
+                        font-size: 11.5px;
+                        color: #b3a99e;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.04em;
+                      "
+                    >
+                      <div>Ингредиент</div>
+                      <div style="text-align: right">Было</div>
+                      <div></div>
+                      <div style="text-align: right">Стало</div>
+                    </div>
+                    <sc-for
+                      list="{{ saleDeductions }}"
+                      as="d"
+                      hint-placeholder-count="3"
+                    >
+                      <div
+                        style="
+                          display: grid;
+                          grid-template-columns: 1.4fr 1fr auto 1fr;
+                          gap: 10px;
+                          align-items: center;
+                          padding: 13px 16px;
+                          border-top: 1px solid #f4eee7;
+                        "
+                      >
+                        <div>
+                          <div
+                            style="
+                              font-size: 14px;
+                              font-weight: 600;
+                              line-height: 1.2;
+                            "
+                          >
+                            {{ d.name }}
+                          </div>
+                          <div
+                            style="
+                              font-size: 12px;
+                              color: #c2453a;
+                              font-weight: 600;
+                              margin-top: 2px;
+                              font-family:
+                                &quot;JetBrains Mono&quot;, monospace;
+                            "
+                          >
+                            {{ d.deltaLabel }}
+                          </div>
+                        </div>
+                        <div
+                          style="
+                            text-align: right;
+                            font-size: 14px;
+                            color: #9a9088;
+                            font-family: &quot;JetBrains Mono&quot;, monospace;
+                            text-decoration: line-through;
+                          "
+                        >
+                          {{ d.beforeLabel }}
+                        </div>
+                        <div
+                          style="
+                            color: #cbbeb0;
+                            font-size: 16px;
+                            text-align: center;
+                          "
+                        >
+                          →
+                        </div>
+                        <div
+                          style="
+                            text-align: right;
+                            font-size: 14.5px;
+                            font-weight: 700;
+                            font-family: &quot;JetBrains Mono&quot;, monospace;
+                          "
+                        >
+                          {{ d.afterLabel }}
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+                <sc-if
+                  value="{{ saleNoDeductions }}"
+                  hint-placeholder-val="{{ false }}"
+                >
+                  <div
+                    style="
+                      text-align: center;
+                      color: #9a9088;
+                      font-size: 13.5px;
+                      padding: 18px;
+                      background: #fbf8f4;
+                      border-radius: 12px;
+                    "
+                  >
+                    У этого товара нет рецепта — списывать со склада нечего.
+                  </div>
+                </sc-if>
+
+                <div
+                  style="
+                    font-size: 12.5px;
+                    color: #9a9088;
+                    text-align: center;
+                    margin-top: 16px;
+                    line-height: 1.5;
+                  "
+                >
+                  Операции записаны в «Историю движения товаров».<br />Excel-таблицы
+                  больше не нужны.
+                </div>
+              </div>
+
+              <div
+                style="
+                  padding: 16px 28px;
+                  border-top: 1px solid #f0e9e2;
+                  display: flex;
+                  gap: 12px;
+                "
+              >
+                <button
+                  onClick="{{ goInventoryFromSale }}"
+                  style="
+                    flex: 1;
+                    padding: 13px;
+                    background: #f5f0ea;
+                    color: var(--accent, #6f4e37);
+                    border: none;
+                    border-radius: 12px;
+                    font-size: 14.5px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    font-family: inherit;
+                  "
+                  style-hover="background:#EFE6DD;"
+                >
+                  Открыть склад
+                </button>
+                <button
+                  onClick="{{ closeSale }}"
+                  style="
+                    flex: 1;
+                    padding: 13px;
+                    background: var(--accent, #6f4e37);
+                    color: #fff8f0;
+                    border: none;
+                    border-radius: 12px;
+                    font-size: 14.5px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    font-family: inherit;
+                    transition: background 0.15s;
+                  "
+                  style-hover="background:var(--accent-d,#5C4029);"
+                >
+                  Готово
+                </button>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ TOAST ============ -->
+        <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+          <div
+            style="
+              position: fixed;
+              bottom: 28px;
+              left: 50%;
+              transform: translateX(-50%);
+              background: #2c2622;
+              color: #fbf8f4;
+              padding: 13px 22px;
+              border-radius: 13px;
+              font-size: 14px;
+              font-weight: 500;
+              box-shadow: 0 12px 34px rgba(0, 0, 0, 0.24);
+              z-index: 60;
+              animation: toastIn 0.26s ease;
+              display: flex;
+              align-items: center;
+              gap: 11px;
+              white-space: nowrap;
+            "
+          >
+            <span
+              style="
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background: #7fb089;
+                flex-shrink: 0;
+              "
+            ></span
+            >{{ toast }}
+          </div>
+        </sc-if>
+      </div>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{"$preview":{"width":1440,"height":900},"accentColor":{"editor":"color","default":"#6F4E37","tsType":"string","options":["#6F4E37","#3E6B4E","#2F5BAA","#B5613A"]},"shopName":{"editor":"text","default":"Кофейня","tsType":"string"},"managerName":{"editor":"text","default":"Анна Котова","tsType":"string"}}'
+    >
+      class Component extends DCLogic {
+        today = '17.06.2026';
+
+        state = {
+          screen: 'dashboard',
+          invTab: 'stock',
+          posCat: 'Кофе',
+          cart: [],
+          inv: [
+            { id: 'tea_green', name: 'Чай зелёный',     cat: 'Чай',            unit: 'кг', rem: 12.0, min: 3, cost: 1800 },
+            { id: 'sea',       name: 'Облепиха',        cat: 'Ягоды и фрукты', unit: 'кг', rem: 8.5,  min: 3, cost: 600 },
+            { id: 'honey',     name: 'Мёд',             cat: 'Подсластители',  unit: 'кг', rem: 5.2,  min: 2, cost: 700 },
+            { id: 'coffee',    name: 'Кофе зерновой',   cat: 'Кофе',           unit: 'кг', rem: 14.3, min: 5, cost: 1600 },
+            { id: 'tea_black', name: 'Чай чёрный',      cat: 'Чай',            unit: 'кг', rem: 9.0,  min: 3, cost: 1500 },
+            { id: 'milk',      name: 'Молоко',          cat: 'Молочное',        unit: 'л',  rem: 9.0,  min: 6, cost: 75 },
+            { id: 'syrup',     name: 'Сироп ванильный', cat: 'Сиропы',          unit: 'л',  rem: 4.0,  min: 5, cost: 450 },
+            { id: 'sugar',     name: 'Сахар',           cat: 'Подсластители',  unit: 'кг', rem: 6.0,  min: 3, cost: 80 },
+            { id: 'cup',       name: 'Стакан 300 мл',   cat: 'Упаковка',        unit: 'шт', rem: 520,  min: 200, cost: 8 },
+            { id: 'lid',       name: 'Крышка',          cat: 'Упаковка',        unit: 'шт', rem: 480,  min: 200, cost: 4 },
+          ],
+          products: [
+            { id: 1,  name: 'Капучино',        cat: 'Кофе',             price: 180, cost: 55, active: true,  finished: false, stock: null, recipe: [{ invId: 'coffee', qty: 0.018 }, { invId: 'milk', qty: 0.15 }, { invId: 'cup', qty: 1 }, { invId: 'lid', qty: 1 }] },
+            { id: 2,  name: 'Латте',           cat: 'Кофе',             price: 200, cost: 60, active: true,  finished: false, stock: null, recipe: [{ invId: 'coffee', qty: 0.018 }, { invId: 'milk', qty: 0.20 }, { invId: 'cup', qty: 1 }, { invId: 'lid', qty: 1 }] },
+            { id: 3,  name: 'Американо',       cat: 'Кофе',             price: 150, cost: 45, active: true,  finished: false, stock: null, recipe: [{ invId: 'coffee', qty: 0.018 }, { invId: 'cup', qty: 1 }, { invId: 'lid', qty: 1 }] },
+            { id: 4,  name: 'Эспрессо',        cat: 'Кофе',             price: 120, cost: 35, active: true,  finished: false, stock: null, recipe: [{ invId: 'coffee', qty: 0.016 }, { invId: 'cup', qty: 1 }] },
+            { id: 5,  name: 'Чай с облепихой', cat: 'Чай',              price: 250, cost: 90, active: true,  finished: false, stock: null, recipe: [{ invId: 'tea_green', qty: 0.025 }, { invId: 'sea', qty: 0.050 }, { invId: 'honey', qty: 0.015 }, { invId: 'cup', qty: 1 }, { invId: 'lid', qty: 1 }] },
+            { id: 6,  name: 'Зелёный чай',     cat: 'Чай',              price: 120, cost: 25, active: true,  finished: false, stock: null, recipe: [{ invId: 'tea_green', qty: 0.005 }, { invId: 'cup', qty: 1 }, { invId: 'lid', qty: 1 }] },
+            { id: 7,  name: 'Чёрный чай',      cat: 'Чай',              price: 120, cost: 25, active: true,  finished: false, stock: null, recipe: [{ invId: 'tea_black', qty: 0.005 }, { invId: 'cup', qty: 1 }, { invId: 'lid', qty: 1 }] },
+            { id: 8,  name: 'Чизкейк',         cat: 'Сладости',         price: 250, cost: 90, active: true,  finished: true,  stock: 18,   recipe: [] },
+            { id: 9,  name: 'Круассан',        cat: 'Сладости',         price: 150, cost: 50, active: true,  finished: true,  stock: 24,   recipe: [] },
+            { id: 12, name: 'Печенье',         cat: 'Сладости',         price: 90,  cost: 30, active: true,  finished: true,  stock: 40,   recipe: [] },
+            { id: 15, name: 'Твикс',           cat: 'Сладости',         price: 110, cost: 60, active: true,  finished: true,  stock: 28,   recipe: [] },
+            { id: 10, name: 'Айс латте',       cat: 'Холодные напитки', price: 230, cost: 70, active: true,  finished: false, stock: null, recipe: [{ invId: 'coffee', qty: 0.018 }, { invId: 'milk', qty: 0.15 }, { invId: 'cup', qty: 1 }, { invId: 'lid', qty: 1 }] },
+            { id: 13, name: 'Вода 0,5 л',      cat: 'Холодные напитки', price: 80,  cost: 30, active: true,  finished: true,  stock: 60,   recipe: [] },
+            { id: 14, name: 'Кока-Кола',       cat: 'Холодные напитки', price: 120, cost: 55, active: true,  finished: true,  stock: 36,   recipe: [] },
+            { id: 11, name: 'Лимонад',         cat: 'Холодные напитки', price: 180, cost: 40, active: false, finished: false, stock: null, recipe: [{ invId: 'syrup', qty: 0.05 }, { invId: 'cup', qty: 1 }] },
+          ],
+          receipts: [
+            { num: 'П-1042', date: '14.06.2026', supplier: 'КофеТрейд',   items: 'Кофе зерновой +10 кг', sum: 24500 },
+            { num: 'П-1041', date: '12.06.2026', supplier: 'ЧайМаркет',   items: 'Чай зелёный +6 кг, Чай чёрный +4 кг', sum: 8200 },
+            { num: 'П-1040', date: '09.06.2026', supplier: 'Food Supply', items: 'Стакан 300 мл +1000 шт, Крышка +1000 шт', sum: 15740 },
+            { num: 'П-1039', date: '05.06.2026', supplier: 'КофеТрейд',   items: 'Молоко +20 л, Сахар +5 кг', sum: 31200 },
+          ],
+          history: [
+            { date: '16.06.2026', item: 'Облепиха',      op: 'Продажа: Чай с облепихой', kind: 'out', delta: 0.050, unit: 'кг', after: 8.5 },
+            { date: '16.06.2026', item: 'Чай зелёный',   op: 'Продажа: Чай с облепихой', kind: 'out', delta: 0.025, unit: 'кг', after: 12.0 },
+            { date: '15.06.2026', item: 'Мёд',           op: 'Поставка',                 kind: 'in',  delta: 3.0,   unit: 'кг', after: 5.2 },
+            { date: '14.06.2026', item: 'Кофе зерновой', op: 'Поставка',                 kind: 'in',  delta: 10.0,  unit: 'кг', after: 14.3 },
+            { date: '14.06.2026', item: 'Молоко',        op: 'Продажа: Латте',           kind: 'out', delta: 0.200, unit: 'л',  after: 9.2 },
+            { date: '13.06.2026', item: 'Стакан 300 мл', op: 'Продажа: Капучино',        kind: 'out', delta: 1,     unit: 'шт', after: 521 },
+          ],
+          supplyOpen: false,
+          supply: {
+            supplier: 'Food Supply',
+            lines: [
+              { invId: 'sea', qty: '5', price: '320' },
+              { invId: 'honey', qty: '3', price: '450' },
+              { invId: 'tea_green', qty: '10', price: '180' },
+            ],
+          },
+          saleOpen: false,
+          sale: null,
+          editing: null,
+          toast: null,
+          receiptCounter: 1043,
+          ingForm: null,
+          ingSeq: 1,
+        };
+
+        categories = ['Кофе', 'Чай', 'Сладости', 'Холодные напитки'];
+        supplierList = ['Food Supply', 'КофеТрейд', 'ЧайМаркет'];
+        ingredientCats = ['Кофе', 'Чай', 'Молочное', 'Сиропы', 'Ягоды и фрукты', 'Подсластители', 'Упаковка', 'Прочее'];
+        ingredientUnits = ['кг', 'л', 'шт'];
+
+        componentDidMount() { this.applyAccent(); }
+        componentDidUpdate() { this.applyAccent(); }
+        componentWillUnmount() { clearTimeout(this._t); }
+
+        applyAccent() {
+          const el = this._root; if (!el) return;
+          const a = this.props.accentColor || '#6F4E37';
+          el.style.setProperty('--accent', a);
+          el.style.setProperty('--accent-d', this.darken(a, 0.82));
+        }
+        darken(hex, f) {
+          let m = hex.replace('#', '');
+          if (m.length === 3) m = m.split('').map(c => c + c).join('');
+          const n = parseInt(m, 16);
+          const r = Math.round(((n >> 16) & 255) * f), g = Math.round(((n >> 8) & 255) * f), b = Math.round((n & 255) * f);
+          return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+        }
+
+        group(n) { return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+        money(n) { return this.group(n) + ' ₽'; }
+        qty(n, unit) {
+          if (unit === 'шт') return this.group(Math.round(n));
+          return Number(n).toFixed(3).replace('.', ',');
+        }
+        qtyU(n, unit) { return this.qty(n, unit) + ' ' + unit; }
+
+        invById(id) { return this.state.inv.find(x => x.id === id); }
+        productById(id) { return this.state.products.find(p => p.id === id); }
+        productCost(p) {
+          if (p.finished) return p.cost || 0;
+          return (p.recipe || []).reduce((a, r) => { const it = this.invById(r.invId); return a + (it && it.cost ? it.cost : 0) * (parseFloat(r.qty) || 0); }, 0);
+        }
+
+        go(s) { this.setState({ screen: s }); }
+        setCat(c) { this.setState({ posCat: c }); }
+
+        addToCart(p) {
+          this.setState(s => {
+            const cart = s.cart.slice();
+            const i = cart.findIndex(c => c.id === p.id);
+            if (i >= 0) cart[i] = { ...cart[i], qty: cart[i].qty + 1 };
+            else cart.push({ id: p.id, name: p.name, price: p.price, qty: 1 });
+            return { cart };
+          });
+        }
+        changeQty(id, d) {
+          this.setState(s => ({ cart: s.cart.map(c => c.id === id ? { ...c, qty: c.qty + d } : c).filter(c => c.qty > 0) }));
+        }
+        clearCart() { this.setState({ cart: [] }); }
+
+        flash(msg) {
+          clearTimeout(this._t);
+          this.setState({ toast: msg });
+          this._t = setTimeout(() => this.setState({ toast: null }), 3200);
+        }
+
+        // ---- core: recipe-based deduction ----
+        pay() {
+          const cart = this.state.cart;
+          if (!cart.length) return;
+
+          const inv = this.state.inv.map(x => ({ ...x }));
+          const byId = {}; inv.forEach(x => { byId[x.id] = x; });
+          const products = this.state.products.map(p => ({ ...p }));
+          const prodById = {}; products.forEach(p => { prodById[p.id] = p; });
+
+          const history = this.state.history.slice();
+          const deductions = [];
+
+          const agg = {}; // invId -> { amount, before, products:Set }
+          cart.forEach(line => {
+            const p = prodById[line.id];
+            if (p && p.finished) {
+              const before = p.stock == null ? 0 : p.stock;
+              const after = Math.max(0, before - line.qty);
+              p.stock = after;
+              deductions.push({ name: p.name, unit: 'шт', before, after, delta: line.qty, finished: true });
+              history.unshift({ date: this.today, item: p.name, op: 'Продажа: ' + p.name, kind: 'out', delta: line.qty, unit: 'шт', after });
+            } else if (p) {
+              (p.recipe || []).forEach(r => {
+                if (!agg[r.invId]) agg[r.invId] = { amount: 0, before: byId[r.invId].rem, products: new Set() };
+                agg[r.invId].amount += r.qty * line.qty;
+                agg[r.invId].products.add(p.name);
+              });
+            }
+          });
+
+          Object.keys(agg).forEach(id => {
+            const it = byId[id];
+            const amt = +agg[id].amount.toFixed(6);
+            const before = agg[id].before;
+            it.rem = +Math.max(0, before - amt).toFixed(6);
+            deductions.push({ name: it.name, unit: it.unit, before, after: it.rem, delta: amt });
+            history.unshift({ date: this.today, item: it.name, op: 'Продажа: ' + [...agg[id].products].join(', '), kind: 'out', delta: amt, unit: it.unit, after: it.rem });
+          });
+
+          const total = cart.reduce((a, c) => a + c.price * c.qty, 0);
+          const lines = cart.map(c => ({ name: c.name, qty: c.qty }));
+
+          this.setState({ inv, products, history, cart: [], saleOpen: true, sale: { lines, total, deductions } });
+        }
+        closeSale() { this.setState({ saleOpen: false }); }
+        goInventoryFromSale() { this.setState({ saleOpen: false, screen: 'inventory' }); }
+
+        // ---- supply ----
+        openSupply() { this.setState({ supplyOpen: true }); }
+        closeSupply() { this.setState({ supplyOpen: false }); }
+        setSupplier(v) { this.setState(s => ({ supply: { ...s.supply, supplier: v } })); }
+        editSupplyLine(i, patch) {
+          this.setState(s => {
+            const lines = s.supply.lines.slice();
+            lines[i] = { ...lines[i], ...patch };
+            return { supply: { ...s.supply, lines } };
+          });
+        }
+        addSupplyLine() {
+          this.setState(s => ({ supply: { ...s.supply, lines: [...s.supply.lines, { invId: 'coffee', qty: '', price: '' }] } }));
+        }
+        removeSupplyLine(i) {
+          this.setState(s => ({ supply: { ...s.supply, lines: s.supply.lines.filter((_, idx) => idx !== i) } }));
+        }
+        acceptSupply() {
+          const lines = this.state.supply.lines.filter(l => parseFloat(l.qty) > 0);
+          if (!lines.length) { this.flash('Добавьте позиции с количеством'); return; }
+
+          const inv = this.state.inv.map(x => ({ ...x }));
+          const byId = {}; inv.forEach(x => { byId[x.id] = x; });
+          const history = this.state.history.slice();
+          let sum = 0;
+          const itemLabels = [];
+
+          lines.forEach(l => {
+            const it = byId[l.invId];
+            const q = parseFloat(l.qty) || 0;
+            const price = parseFloat(l.price) || 0;
+            it.rem = +(it.rem + q).toFixed(6);
+            if (price > 0) it.cost = price;
+            sum += q * price;
+            itemLabels.push(it.name + ' +' + this.qty(q, it.unit) + ' ' + it.unit);
+            history.unshift({ date: this.today, item: it.name, op: 'Поставка', kind: 'in', delta: q, unit: it.unit, after: it.rem });
+          });
+
+          const num = 'П-' + this.state.receiptCounter;
+          const receipt = { num, date: this.today, supplier: this.state.supply.supplier, items: itemLabels.join(', '), sum: Math.round(sum) };
+
+          this.setState(s => ({
+            inv, history,
+            receipts: [receipt, ...s.receipts],
+            receiptCounter: s.receiptCounter + 1,
+            supplyOpen: false,
+            screen: 'inventory',
+          }));
+          this.flash('Поставка принята · остатки на складе пополнены');
+        }
+
+        // ---- product / recipe editor ----
+        addProduct() {
+          this.setState({ screen: 'editor', editing: { id: null, name: '', cat: 'Кофе', price: '', cost: '', finished: false, stock: '', recipe: [{ invId: 'coffee', qty: '' }] } });
+        }
+        editProduct(p) {
+          this.setState({ screen: 'editor', editing: { id: p.id, name: p.name, cat: p.cat, price: String(p.price), cost: String(p.cost), finished: !!p.finished, stock: p.stock == null ? '' : String(p.stock), recipe: p.recipe.map(r => ({ invId: r.invId, qty: String(r.qty) })) } });
+        }
+        closeEditor() { this.setState({ screen: 'products', editing: null }); }
+        setEdit(patch) { this.setState(s => ({ editing: { ...s.editing, ...patch } })); }
+        toggleFinished() { this.setState(s => ({ editing: { ...s.editing, finished: !s.editing.finished } })); }
+        editRecipeRow(i, patch) {
+          this.setState(s => {
+            const recipe = s.editing.recipe.slice();
+            recipe[i] = { ...recipe[i], ...patch };
+            return { editing: { ...s.editing, recipe } };
+          });
+        }
+        addRecipeRow() {
+          this.setState(s => ({ editing: { ...s.editing, recipe: [...s.editing.recipe, { invId: 'coffee', qty: '' }] } }));
+        }
+        removeRecipeRow(i) {
+          this.setState(s => ({ editing: { ...s.editing, recipe: s.editing.recipe.filter((_, idx) => idx !== i) } }));
+        }
+        saveProduct() {
+          const e = this.state.editing;
+          if (!e.name.trim()) { this.flash('Укажите название товара'); return; }
+          const finished = !!e.finished;
+          const recipe = finished ? [] : e.recipe.filter(r => parseFloat(r.qty) > 0).map(r => ({ invId: r.invId, qty: parseFloat(r.qty) }));
+          const stock = finished ? (parseFloat(String(e.stock).replace(',', '.')) || 0) : null;
+          const num = v => parseFloat(String(v).replace(',', '.')) || 0;
+          const recipeCost = recipe.reduce((a, r) => { const it = this.invById(r.invId); return a + (it && it.cost ? it.cost : 0) * r.qty; }, 0);
+          const cost = finished ? num(e.cost) : Math.round(recipeCost);
+          const data = { name: e.name.trim(), cat: e.cat, price: num(e.price), cost, active: true, finished, stock, recipe };
+          this.setState(s => {
+            let products;
+            if (e.id) products = s.products.map(p => p.id === e.id ? { ...p, ...data } : p);
+            else products = [...s.products, { id: Math.max(0, ...s.products.map(p => p.id)) + 1, ...data }];
+            return { products, screen: 'products', editing: null };
+          });
+          this.flash(e.id ? 'Товар обновлён' : 'Товар добавлен в меню');
+        }
+
+        // ---- ingredient catalog ----
+        openIngredient(item) {
+          if (item) this.setState({ ingForm: { id: item.id, name: item.name, cat: item.cat, unit: item.unit, rem: String(item.rem), min: String(item.min) } });
+          else this.setState({ ingForm: { id: null, name: '', cat: this.ingredientCats[0], unit: 'кг', rem: '', min: '' } });
+        }
+        closeIngredient() { this.setState({ ingForm: null }); }
+        setIng(patch) { this.setState(s => ({ ingForm: { ...s.ingForm, ...patch } })); }
+        saveIngredient() {
+          const f = this.state.ingForm;
+          if (!f.name.trim()) { this.flash('Укажите наименование'); return; }
+          const num = v => parseFloat(String(v).replace(',', '.')) || 0;
+          const data = { name: f.name.trim(), cat: f.cat, unit: f.unit, rem: num(f.rem), min: num(f.min) };
+          this.setState(s => {
+            let inv;
+            if (f.id) inv = s.inv.map(x => x.id === f.id ? { ...x, ...data } : x);
+            else inv = [...s.inv, { id: 'ing_' + s.ingSeq, ...data }];
+            return { inv, ingForm: null, ingSeq: s.ingSeq + (f.id ? 0 : 1) };
+          });
+          this.flash(f.id ? 'Ингредиент обновлён' : 'Ингредиент добавлен');
+        }
+
+        recipeShort(recipe) {
+          if (!recipe || !recipe.length) return '—';
+          const names = recipe.map(r => { const it = this.invById(r.invId); return it ? it.name : ''; }).filter(Boolean);
+          if (names.length <= 2) return names.join(', ');
+          return names.slice(0, 2).join(', ') + ' +' + (names.length - 2);
+        }
+
+        renderVals() {
+          const cur = this.state.screen;
+          const navBase = { display: 'flex', alignItems: 'center', gap: '12px', padding: '11px 13px', borderRadius: '11px', cursor: 'pointer', fontSize: '15px', fontWeight: 500, color: '#6B5F54', transition: 'background .14s,color .14s' };
+          const navOn = { ...navBase, background: 'var(--accent,#6F4E37)', color: '#FFF8F0', fontWeight: 600 };
+          const mkNav = (s) => ({ on: () => this.go(s), css: cur === s ? navOn : navBase });
+          const inventoryNav = mkNav('inventory');
+          inventoryNav.badgeCss = { marginLeft: 'auto', minWidth: '20px', height: '20px', padding: '0 6px', borderRadius: '999px', background: cur === 'inventory' ? 'rgba(255,255,255,.22)' : '#F0DFC4', color: cur === 'inventory' ? '#FFF8F0' : '#A9651C', fontSize: '12px', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center' };
+
+          const lowCount = this.state.inv.filter(i => i.rem <= i.min).length;
+          const invTab = this.state.invTab || 'stock';
+          const tabBase = { padding: '9px 18px', borderRadius: '999px', cursor: 'pointer', fontSize: '14px', fontWeight: 600, background: '#fff', color: '#6B5F54', border: '1px solid #E4DBD1', transition: 'background .14s,color .14s' };
+          const tabOn = { ...tabBase, background: 'var(--accent,#6F4E37)', color: '#FFF8F0', border: '1px solid var(--accent,#6F4E37)' };
+
+          // POS
+          const catBase = { padding: '14px 16px', borderRadius: '13px', cursor: 'pointer', fontSize: '14.5px', fontWeight: 500, background: '#fff', color: '#4A4038', border: '1px solid #ECE5DD', transition: 'background .14s,color .14s' };
+          const catOn = { ...catBase, fontWeight: 600, background: 'var(--accent,#6F4E37)', color: '#FFF8F0', border: '1px solid var(--accent,#6F4E37)' };
+          const cats = this.categories.map(c => ({ name: c, on: () => this.setCat(c), css: c === this.state.posCat ? catOn : catBase }));
+
+          const posProducts = this.state.products.filter(p => p.cat === this.state.posCat && p.active).map(p => ({
+            name: p.name, priceLabel: this.money(p.price),
+            recipeLabel: p.finished ? 'готовый' : (p.recipe && p.recipe.length ? p.recipe.length + ' ингр.' : ''),
+            add: () => this.addToCart(p),
+          }));
+
+          const cart = this.state.cart.map(c => ({
+            name: c.name, qtyLabel: String(c.qty), priceLabel: this.money(c.price), lineLabel: this.money(c.price * c.qty),
+            inc: () => this.changeQty(c.id, 1), dec: () => this.changeQty(c.id, -1),
+          }));
+          const total = this.state.cart.reduce((a, c) => a + c.price * c.qty, 0);
+          const itemCount = this.state.cart.reduce((a, c) => a + c.qty, 0);
+
+          // products table
+          const okCss = { fontSize: '12.5px', fontWeight: 600, color: '#5E9B6B', background: '#EBF3EC', padding: '4px 11px', borderRadius: '999px' };
+          const offCss = { fontSize: '12.5px', fontWeight: 600, color: '#9A9088', background: '#F0EBE5', padding: '4px 11px', borderRadius: '999px' };
+          const products = this.state.products.map(p => {
+            const c = this.productCost(p); const m = p.price - c; const pct = p.price > 0 ? Math.round(m / p.price * 100) : 0;
+            return {
+              name: p.name, cat: p.cat,
+              recipeLabel: p.finished ? ('Готовый · ' + this.group(p.stock == null ? 0 : p.stock) + ' шт') : this.recipeShort(p.recipe),
+              priceLabel: this.money(p.price), costLabel: this.money(Math.round(c)),
+              marginLabel: this.money(Math.round(m)) + ' · ' + pct + '%',
+              statusLabel: p.active ? 'Активен' : 'Скрыт', statusCss: p.active ? okCss : offCss, edit: () => this.editProduct(p),
+            };
+          });
+
+          // inventory
+          const remBase = { padding: '15px 22px', fontSize: '15px', textAlign: 'right', borderBottom: '1px solid #F4EEE7', fontFamily: "'JetBrains Mono',monospace" };
+          const rowBase = { transition: 'background .12s' };
+          const inventory = this.state.inv.map(it => {
+            const low = it.rem <= it.min;
+            return {
+              name: it.name, unit: it.unit, remLabel: this.qty(it.rem, it.unit), minLabel: this.qtyU(it.min, it.unit),
+              low, ok: !low,
+              rowCss: low ? { ...rowBase, background: '#FFFBF4' } : rowBase,
+              remCss: { ...remBase, fontWeight: 700, color: low ? '#A9651C' : '#2C2622' },
+            };
+          });
+
+          // receipts
+          const receipts = this.state.receipts.map(r => ({ num: r.num, date: r.date, supplier: r.supplier, items: r.items, sumLabel: this.money(r.sum), rowCss: rowBase }));
+
+          // ingredient catalog
+          const ingredients = this.state.inv.map(it => {
+            const low = it.rem <= it.min;
+            return {
+              name: it.name, cat: it.cat, unit: it.unit,
+              remLabel: this.qty(it.rem, it.unit), minLabel: this.qtyU(it.min, it.unit),
+              low,
+              ok: !low,
+              rowCss: low ? { ...rowBase, cursor: 'pointer', background: '#FFFBF4' } : { ...rowBase, cursor: 'pointer' },
+              remCss: { ...remBase, fontWeight: 700, color: low ? '#A9651C' : '#2C2622' },
+              edit: () => this.openIngredient(it),
+            };
+          });
+
+          // history
+          const inDelta = { padding: '14px 22px', fontSize: '14px', textAlign: 'right', borderBottom: '1px solid #F4EEE7', fontFamily: "'JetBrains Mono',monospace", fontWeight: 700, color: '#3E8A57' };
+          const outDelta = { ...inDelta, color: '#C2453A' };
+          const inOp = { display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '12.5px', fontWeight: 600, padding: '4px 11px', borderRadius: '999px', background: '#EBF3EC', color: '#3E8A57' };
+          const outOp = { ...inOp, background: '#FBEDEA', color: '#C2453A' };
+          const history = this.state.history.map(h => ({
+            date: h.date, item: h.item, opLabel: h.op, opCss: h.kind === 'in' ? inOp : outOp,
+            deltaLabel: (h.kind === 'in' ? '+' : '−') + this.qty(h.delta, h.unit) + ' ' + h.unit,
+            deltaCss: h.kind === 'in' ? inDelta : outDelta,
+            afterLabel: this.qtyU(h.after, h.unit), rowCss: rowBase,
+          }));
+
+          // editor
+          const e = this.state.editing;
+          let editor = null;
+          const invOptions = this.state.inv.map(i => ({ id: i.id, name: i.name }));
+          if (e) {
+            const recipe = e.recipe.map((row, i) => {
+              const it = this.invById(row.invId);
+              return {
+                invId: row.invId, qty: row.qty, unit: it ? it.unit : '',
+                onPick: ev => this.editRecipeRow(i, { invId: ev.target.value }),
+                onQty: ev => this.editRecipeRow(i, { qty: ev.target.value }),
+                remove: () => this.removeRecipeRow(i),
+              };
+            });
+            const swOn = !!e.finished;
+            const baseTypeCard = { flex: 1, border: '1px solid #F0E9E2', borderRadius: '13px', padding: '13px 15px', background: '#FBF8F4', transition: 'all .18s' };
+            const activeTypeCard = { ...baseTypeCard, borderColor: 'var(--accent,#6F4E37)', background: '#FBF4EC', boxShadow: '0 0 0 1px var(--accent,#6F4E37)' };
+            const numE = v => parseFloat(String(v).replace(',', '.')) || 0;
+            const rcCost = e.recipe.reduce((a, row) => { const it = this.invById(row.invId); return a + (it && it.cost ? it.cost : 0) * numE(row.qty); }, 0);
+            const priceN = numE(e.price);
+            const costN = e.finished ? numE(e.cost) : rcCost;
+            const marginN = priceN - costN;
+            const pctN = priceN > 0 ? Math.round(marginN / priceN * 100) : 0;
+            editor = {
+              title: e.id ? 'Редактирование товара' : 'Новый товар',
+              name: e.name, cat: e.cat, price: e.price, cost: e.cost,
+              costLabel: this.money(Math.round(costN)),
+              marginLabel: this.money(Math.round(marginN)),
+              marginPctLabel: (priceN > 0 ? pctN + '%' : '—'),
+              costHint: e.finished ? 'Указывается закупочная цена готового товара' : 'Считается автоматически по составу и ценам закупки',
+              finished: swOn, notFinished: !swOn, stock: e.stock,
+              recipe, recipeEmpty: recipe.length === 0,
+              switchCss: { width: '48px', height: '28px', borderRadius: '999px', border: 'none', cursor: 'pointer', padding: '3px', display: 'flex', alignItems: 'center', justifyContent: swOn ? 'flex-end' : 'flex-start', background: swOn ? 'var(--accent,#6F4E37)' : '#E0D7CD', transition: 'background .18s', flexShrink: 0 },
+              knobCss: { width: '22px', height: '22px', borderRadius: '50%', background: '#fff', boxShadow: '0 1px 3px rgba(0,0,0,.2)' },
+              finishedCardCss: swOn ? activeTypeCard : baseTypeCard,
+              recipeCardCss: !swOn ? activeTypeCard : baseTypeCard,
+              onName: ev => this.setEdit({ name: ev.target.value }),
+              onCat: ev => this.setEdit({ cat: ev.target.value }),
+              onPrice: ev => this.setEdit({ price: ev.target.value }),
+              onCost: ev => this.setEdit({ cost: ev.target.value }),
+              onStock: ev => this.setEdit({ stock: ev.target.value }),
+              toggleFinished: () => this.toggleFinished(),
+              addRow: () => this.addRecipeRow(),
+            };
+          }
+
+          // ingredient form
+          const ig = this.state.ingForm;
+          let ingForm = null;
+          if (ig) {
+            ingForm = {
+              title: ig.id ? 'Редактирование ингредиента' : 'Новый ингредиент',
+              name: ig.name, cat: ig.cat, unit: ig.unit, rem: ig.rem, min: ig.min,
+              onName: ev => this.setIng({ name: ev.target.value }),
+              onCat: ev => this.setIng({ cat: ev.target.value }),
+              onUnit: ev => this.setIng({ unit: ev.target.value }),
+              onRem: ev => this.setIng({ rem: ev.target.value }),
+              onMin: ev => this.setIng({ min: ev.target.value }),
+            };
+          }
+
+          // supply
+          const supplyLines = this.state.supply.lines.map((l, i) => {
+            const it = this.invById(l.invId);
+            return {
+              invId: l.invId, qty: l.qty, price: l.price, unit: it ? it.unit : '',
+              onPick: ev => this.editSupplyLine(i, { invId: ev.target.value }),
+              onQty: ev => this.editSupplyLine(i, { qty: ev.target.value }),
+              onPrice: ev => this.editSupplyLine(i, { price: ev.target.value }),
+              remove: () => this.removeSupplyLine(i),
+            };
+          });
+          const supplyTotal = this.state.supply.lines.reduce((a, l) => a + (parseFloat(l.qty) || 0) * (parseFloat(l.price) || 0), 0);
+
+          // sale modal
+          const sale = this.state.sale;
+          let saleSummaryLabel = '', saleTotalLabel = '', saleDeductions = [], saleHasDeductions = false, saleNoDeductions = false;
+          if (sale) {
+            saleTotalLabel = this.money(sale.total);
+            saleSummaryLabel = sale.lines.map(l => l.name + ' ×' + l.qty).join(' · ');
+            saleDeductions = sale.deductions.map(d => ({
+              name: d.name, beforeLabel: this.qtyU(d.before, d.unit), afterLabel: this.qtyU(d.after, d.unit),
+              deltaLabel: '−' + this.qty(d.delta, d.unit) + ' ' + d.unit,
+            }));
+            saleHasDeductions = saleDeductions.length > 0;
+            saleNoDeductions = !saleHasDeductions;
+          }
+
+          return {
+            rootRef: el => { this._root = el; },
+            shopName: this.props.shopName || 'Кофейня',
+            managerName: this.props.managerName || 'Анна Котова',
+            nav: { dashboard: mkNav('dashboard'), sales: mkNav('sales'), inventory: inventoryNav, supply: mkNav('supply'), products: mkNav('products'), ingredients: mkNav('ingredients'), history: mkNav('history') },
+            isDashboard: cur === 'dashboard', isSales: cur === 'sales', isInventory: cur === 'inventory', isSupply: cur === 'supply', isProducts: cur === 'products', isIngredients: cur === 'ingredients', isEditor: cur === 'editor', isHistory: cur === 'history',
+            lowCount, invCount: this.state.inv.length,
+            tabStock: { on: () => this.setState({ invTab: 'stock' }), css: invTab === 'stock' ? tabOn : tabBase },
+            tabMoves: { on: () => this.setState({ invTab: 'moves' }), css: invTab === 'moves' ? tabOn : tabBase },
+            invTabStock: invTab === 'stock', invTabMoves: invTab === 'moves',
+            cats, posProducts,
+            cart, cartEmpty: cart.length === 0, cartHasItems: cart.length > 0,
+            totalLabel: this.money(total), itemCount,
+            pay: () => this.pay(), clearCart: () => this.clearCart(),
+            products, inventory, receipts, history, ingredients,
+            addProduct: () => this.addProduct(),
+            ingredientCats: this.ingredientCats, ingredientUnits: this.ingredientUnits,
+            openIngredient: () => this.openIngredient(), ingForm, closeIngredient: () => this.closeIngredient(), saveIngredient: () => this.saveIngredient(),
+            catOptions: this.categories, invOptions, supplierOptions: this.supplierList,
+            editor, isEditorOpen: !!editor, closeEditor: () => this.closeEditor(), saveProduct: () => this.saveProduct(),
+            supplyOpen: this.state.supplyOpen, openSupply: () => this.openSupply(), closeSupply: () => this.closeSupply(),
+            supply: { supplier: this.state.supply.supplier, lines: supplyLines, onSupplier: ev => this.setSupplier(ev.target.value) },
+            addSupplyLine: () => this.addSupplyLine(), acceptSupply: () => this.acceptSupply(), supplyTotalLabel: this.money(supplyTotal),
+            saleOpen: this.state.saleOpen, closeSale: () => this.closeSale(), goInventoryFromSale: () => this.goInventoryFromSale(),
+            saleTotalLabel, saleSummaryLabel, saleDeductions, saleHasDeductions, saleNoDeductions,
+            stop: ev => ev.stopPropagation(),
+            toast: this.state.toast,
+          };
+        }
+      }
+    </script>
+  </body>
+</html>
